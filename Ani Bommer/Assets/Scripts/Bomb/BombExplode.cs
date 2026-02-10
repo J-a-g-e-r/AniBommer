@@ -9,7 +9,7 @@ public class BombExplode : MonoBehaviour
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private LayerMask levelMask;
     [SerializeField] private float bombCoundownTime = 3f;
-    [SerializeField] private float explosionRange = 3f;
+    [SerializeField] private float explosionRange = 1f;
 
     private bool isExploded = false;
     void Start()
@@ -17,10 +17,9 @@ public class BombExplode : MonoBehaviour
         Invoke("Explode", bombCoundownTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Init(int range)
     {
-
+        explosionRange = range;
     }
 
     private void Explode()
@@ -33,7 +32,6 @@ public class BombExplode : MonoBehaviour
         StartCoroutine(CreateExplosions(Vector3.left));
 
         GetComponent<MeshRenderer>().enabled = false; //2
-
         isExploded = true;
         Destroy(gameObject, .3f);
     }
@@ -42,7 +40,7 @@ public class BombExplode : MonoBehaviour
     {
         Vector3 origin = transform.position + Vector3.up * 0.5f;
 
-        for (int i = 1; i < explosionRange; i++)
+        for (int i = 1; i <= explosionRange; i++)
         {
             RaycastHit hit;
             float distance = i * 2f;

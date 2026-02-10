@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 991839093590883611}
   - component: {fileID: -6519820149767009847}
   - component: {fileID: 4073078148969535117}
-  - component: {fileID: 6731622658702995567}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -139,30 +138,3 @@ MonoBehaviour:
     m_Bits: 192
   bombCoundownTime: 3
   explosionRange: 3
---- !u!54 &6731622658702995567
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8501724340952986575}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

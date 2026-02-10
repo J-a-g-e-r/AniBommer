@@ -6,18 +6,37 @@ public class PlayerController : MonoBehaviour
 {
     private Player playerInput;
     private CharacterController controller;
-    [SerializeField] private float playerSpeed = 2.0f;
+    private PlayerSkills playerSkills;
+    private Animator animator;
+    private PlayerStats playerStats;
+    private BombExplode bombExplode;
     [SerializeField] private GameObject bombPrefab;
+    [SerializeField] private Characters characterData;
+
 
     private void Awake()
     {
         playerInput = new Player();
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        playerStats = GetComponent<PlayerStats>();
+        playerSkills = GetComponent<PlayerSkills>();
+        bombExplode = bombPrefab.GetComponent<BombExplode>();
+    }
+    private void Start()
+    {
+        playerStats.Init(characterData);
+        playerSkills.Init(characterData);
+        bombExplode.Init(playerStats.BombRange);
+
     }
 
     private void OnEnable()
     {
         playerInput.Enable();
+        playerInput.PlayerController.Skill1.performed += _ => playerSkills.UseSkill(0);
+        playerInput.PlayerController.Skill2.performed += _ => playerSkills.UseSkill(1);
+        playerInput.PlayerController.Skill3.performed += _ => playerSkills.UseSkill(2);
     }
 
     private void OnDisable()
@@ -33,13 +52,17 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 movementInput = playerInput.PlayerController.Move.ReadValue<Vector2>();
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        controller.Move(move * Time.deltaTime * playerStats.MoveSpeed);
 
-
+        // Rotate player towards movement direction
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
         }
+
+        // Animation
+        bool isRunning = move.magnitude > 0.01f;
+        animator.SetBool("IsRunning", isRunning);
 
         // MPlace bomb
         if (playerInput.PlayerController.PlaceBomb.triggered)
@@ -60,7 +83,7 @@ public class PlayerController : MonoBehaviour
                 bombPrefab.transform.rotation
             );
         }
-
+        
     }
 
     private void LateUpdate()
@@ -70,5 +93,13 @@ public class PlayerController : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, -18f, 18f);
         pos.z = Mathf.Clamp(pos.z, -12f, 12f);
         transform.position = pos;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Explosion"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
