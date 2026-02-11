@@ -102,6 +102,15 @@ public class GridMapSpawner : MonoBehaviour
             case TileType.PlayerSpawn:
                 GameObject player = Instantiate(playerPrefab, pos + new Vector3(0,0.5f,0), playerPrefab.transform.rotation);
                 camSetter.SetTarget(player.transform);
+                var gm = FindObjectOfType<GameManager>();
+                if (gm == null)
+                {
+                    Debug.LogError("❌ KHÔNG TÌM THẤY GameManager");
+                }
+                else
+                {
+                    gm.RegisterLocalPlayer(player);
+                }
                 return;
         }
 

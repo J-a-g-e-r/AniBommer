@@ -1,17 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shield : Skill
 {
-    [Header("Skill Info")]
-    public string SkillName = "Boost Speed";
-    public Sprite Icon => Resources.Load<Sprite>("Icons/Shield");
     protected override float Cooldown => 5f;
+
+    public Shield()
+    {
+        // TODO: Đảm bảo có file Assets/Resources/Icons/Shield.png
+        skillName = "Shield";
+        icon = Resources.Load<Sprite>("Icons/Shield");
+    }
 
     protected override void Use(GameObject owner)
     {
-        owner.GetComponent<MonoBehaviour>().StartCoroutine(Protect(owner));
+        var mono = owner.GetComponent<MonoBehaviour>();
+        if (mono != null)
+        {
+            mono.StartCoroutine(Protect(owner));
+        }
     }
 
     // Unfinished

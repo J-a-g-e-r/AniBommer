@@ -3,14 +3,22 @@ using UnityEngine;
 
 public class BoostSpeed : Skill
 {
-    [Header("Skill Info")]
-    public string SkillName = "Boost Speed";
-    public Sprite Icon => Resources.Load<Sprite>("Icons/BoostSpeed");
-    protected override float Cooldown => 5f;
+    protected override float Cooldown => 10f;
+
+    public BoostSpeed()
+    {
+        // Gán thông tin hiển thị cho skill (dùng trong UI)
+        skillName = "Boost Speed";
+        icon = Resources.Load<Sprite>("Icons/BoostSpeed");
+    }
 
     protected override void Use(GameObject owner)
     {
-        owner.GetComponent<MonoBehaviour>().StartCoroutine(Boost(owner));
+        var mono = owner.GetComponent<MonoBehaviour>();
+        if (mono != null)
+        {
+            mono.StartCoroutine(Boost(owner));
+        }
     }
 
     private IEnumerator Boost(GameObject owner)
@@ -19,6 +27,5 @@ public class BoostSpeed : Skill
         stats.MoveSpeed += 10f;
         yield return new WaitForSeconds(5f);
         stats.MoveSpeed -= 10f;
-
     }
 }
