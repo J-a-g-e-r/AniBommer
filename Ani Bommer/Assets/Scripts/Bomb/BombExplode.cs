@@ -12,6 +12,7 @@ public class BombExplode : MonoBehaviour
     [SerializeField] private float explosionRange = 1f;
 
     private bool isExploded = false;
+    private Vector2Int grid;
     void Start()
     {
         Invoke("Explode", bombCoundownTime);
@@ -20,6 +21,11 @@ public class BombExplode : MonoBehaviour
     public void Init(int range)
     {
         explosionRange = range;
+    }
+
+    public void InitPos(Vector2Int gridPos)
+    {
+        grid = gridPos;
     }
 
     private void Explode()
@@ -33,6 +39,8 @@ public class BombExplode : MonoBehaviour
 
         GetComponent<MeshRenderer>().enabled = false; //2
         isExploded = true;
+        GridMapSpawner.Instance.RemoveBomb(grid);
+        GameEvents.OnBombExploded?.Invoke();
         Destroy(gameObject, .3f);
     }
 

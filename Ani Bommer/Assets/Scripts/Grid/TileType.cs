@@ -4,5 +4,6 @@ public enum TileType
     Indestructible,
     Destructible,
     PlayerSpawn,
-    EnemySpawn
+    EnemySpawn,
+    Bomb
 }

@@ -2,6 +2,7 @@
 
 public class GridMapSpawner : MonoBehaviour
 {
+    public static GridMapSpawner Instance;
     private float tileSize;
 
     public GameObject floorPrefabA;
@@ -13,10 +14,20 @@ public class GridMapSpawner : MonoBehaviour
 
     private TileType[,] mapData;
 
+    private float offsetX;
+    private float offsetZ;
+
     private void Awake()
     {
+        Instance = this;
         tileSize = floorPrefabA.GetComponent<Renderer>().bounds.size.x;
         InitMapData();
+
+        int width = mapData.GetLength(0);
+        int height = mapData.GetLength(1);
+
+        offsetX = -(width * tileSize) / 2f + tileSize / 2f;
+        offsetZ = -(height * tileSize) / 2f + tileSize / 2f;
     }
     void Start()
     {
@@ -115,7 +126,62 @@ public class GridMapSpawner : MonoBehaviour
         }
 
         if (obj != null)
-            Instantiate(obj, pos + Vector3.up * 0.5f, obj.transform.rotation, transform);
+        {
+            GameObject block = Instantiate(obj, pos + Vector3.up * 0.5f, obj.transform.rotation, transform);
+
+            BreakableBlock bb = block.GetComponent<BreakableBlock>();
+            if(bb != null)
+            {
+                Vector2Int gridPos = WorldToGrid(pos);
+                bb.SetGridPosition(gridPos);
+            }
+        }
+    }
+
+
+    //
+    public Vector2Int WorldToGrid(Vector3 worldPos)
+    {
+        int x = Mathf.RoundToInt((worldPos.x - offsetX) / tileSize);
+        int z = Mathf.RoundToInt((worldPos.z - offsetZ) / tileSize);
+        return new Vector2Int(x, z);
+    }
+
+    public Vector3 GridToWorld(Vector2Int grid)
+    {
+        return new Vector3(
+            grid.x * tileSize + offsetX,
+            0,
+            grid.y * tileSize + offsetZ
+        );
+    }
+
+    public bool CanPlaceBomb(Vector2Int grid)
+    {
+        if (grid.x < 0 || grid.y < 0 ||
+            grid.x >= mapData.GetLength(0) ||
+            grid.y >= mapData.GetLength(1))
+            return false;
+
+        return mapData[grid.x, grid.y] == TileType.Empty;
+    }
+
+    public void PlaceBomb(Vector2Int grid)
+    {
+        mapData[grid.x, grid.y] = TileType.Bomb;
+    }
+
+    public void RemoveBomb(Vector2Int grid)
+    {
+        mapData[grid.x, grid.y] = TileType.Empty;
+    }
+
+    public void RemoveDestructible(Vector2Int grid)
+    {
+        if (mapData[grid.x, grid.y] == TileType.Destructible)
+        {
+            mapData[grid.x, grid.y] = TileType.Empty;
+        }
     }
 
 }

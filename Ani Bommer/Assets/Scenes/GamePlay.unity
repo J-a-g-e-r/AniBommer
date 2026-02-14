@@ -20731,7 +20731,7 @@ MonoBehaviour:
   - {fileID: 6897860929774503691, guid: b08038799ce727c43ab5a298c0c4f1a5, type: 3}
   - {fileID: 2827955785740850341, guid: 5107aafee448ef045afb4b0f8c1197fd, type: 3}
   - {fileID: 1166550976454875324, guid: b5e19a75a095490479b66297b4bb412e, type: 3}
-  playerPrefab: {fileID: 113183175814293108, guid: d094ed75238b29c4e9cfc10d9ae9c1ee,
+  playerPrefab: {fileID: 5605753367064758334, guid: 3b57b645e79e9a840beb8c3cd631bc84,
     type: 3}
   camSetter: {fileID: 1364952299}
 --- !u!4 &1851371966 stripped

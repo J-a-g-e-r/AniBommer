@@ -67,23 +67,10 @@ public class PlayerController : MonoBehaviour
         // MPlace bomb
         if (playerInput.PlayerController.PlaceBomb.triggered)
         {
-            //Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(transform.position.x),bombPrefab.transform.position.y, Mathf.RoundToInt(transform.position.z)),bombPrefab.transform.rotation);
-            float tileSize = 2f;
-
-            float snapX = Mathf.Round(transform.position.x / tileSize) * tileSize;
-            float snapZ = Mathf.Round(transform.position.z / tileSize) * tileSize;
-
-            Instantiate(
-                bombPrefab,
-                new Vector3(
-                    snapX,
-                    bombPrefab.transform.position.y,
-                    snapZ
-                ),
-                bombPrefab.transform.rotation
-            );
+                PlaceBomb();
         }
-        
+
+
     }
 
     private void LateUpdate()
@@ -101,5 +88,26 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void PlaceBomb()
+    {
+
+        //float snapX = Mathf.Round(transform.position.x / tileSize) * tileSize;
+        //float snapZ = Mathf.Round(transform.position.z / tileSize) * tileSize;
+
+        Vector2Int grid = GridMapSpawner.Instance.WorldToGrid(transform.position);
+
+        if (!playerStats.CanPlaceBomb() || !GridMapSpawner.Instance.CanPlaceBomb(grid))
+        {
+            return;
+        }
+        Vector3 worldPos = GridMapSpawner.Instance.GridToWorld(grid);
+
+        GameObject bombObj = Instantiate(bombPrefab, new Vector3(worldPos.x,0.5f,worldPos.z),bombPrefab.transform.rotation);
+        bombObj.GetComponent<BombExplode>().InitPos(grid);
+        GridMapSpawner.Instance.PlaceBomb(grid);
+        GameEvents.OnBombPlaced?.Invoke();
+
     }
 }
