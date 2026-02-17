@@ -9,6 +9,7 @@ public abstract class Skill : ISkill
 
     public bool CanUse => cooldownRemaining <= 0f;
     public float CooldownRemaining => cooldownRemaining;
+    public float CooldownTime => Cooldown;
 
     public void UpdateCooldown(float deltaTime)
     {

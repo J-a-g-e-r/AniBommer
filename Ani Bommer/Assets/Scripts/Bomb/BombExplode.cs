@@ -9,7 +9,7 @@ public class BombExplode : MonoBehaviour
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private LayerMask levelMask;
     [SerializeField] private float bombCoundownTime = 3f;
-    [SerializeField] private float explosionRange = 1f;
+    [SerializeField] private float explosionRange ;
 
     private bool isExploded = false;
     private Vector2Int grid;
