@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Barbarian
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  bombRange: 2
-  maxBombs: 3
+  bombRange: 1
+  maxBombs: 1
   startingSkill: 1

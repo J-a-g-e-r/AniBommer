@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 880589305985970124}
   - component: {fileID: 425294424558170934}
   - component: {fileID: -3751012896008768023}
-  m_Layer: 0
+  - component: {fileID: -639132662884934013}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -47,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb5d92cfb0d8c744a58b503f390b72c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 10
   bombPrefab: {fileID: 8501724340952986575, guid: e6d2505486e061e4ab99256ea14efb39,
     type: 3}
+  characterData: {fileID: 0}
 --- !u!143 &-3751012896008768023
 CharacterController:
   m_ObjectHideFlags: 0
@@ -76,6 +77,20 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.98, z: 0}
+--- !u!114 &-639132662884934013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536961769667392886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de84417e809a92c44993243ffb46b370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionClip: {fileID: 0}
+  _coinCollectClip: {fileID: 0}
 --- !u!1 &1679644257353908891
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 981150710665845802}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7078222887998109913}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3597909400176767872}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arm-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3900241581793322072}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6326109827494705766}
   - component: {fileID: 5979684377540359788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body-mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8130907584293808382}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arm-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +351,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2235755786233453001}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

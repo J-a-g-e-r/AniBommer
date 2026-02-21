@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
         Vector3 worldPos = GridMapSpawner.Instance.GridToWorld(grid);
 
         GameObject bombObj = Instantiate(bombPrefab, new Vector3(worldPos.x,0.5f,worldPos.z),bombPrefab.transform.rotation);
+        bombObj.GetComponent<BombExplode>().Init(playerStats.BombRange);
         bombObj.GetComponent<BombExplode>().InitPos(grid);
         GridMapSpawner.Instance.PlaceBomb(grid);
         GameEvents.OnBombPlaced?.Invoke();

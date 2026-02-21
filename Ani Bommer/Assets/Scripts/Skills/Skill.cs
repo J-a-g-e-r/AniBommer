@@ -2,9 +2,8 @@ using UnityEngine;
 
 public abstract class Skill : ISkill
 {
-    public string skillName;
-    public Sprite icon;
     protected abstract float Cooldown { get; }
+    public Sprite icon;
     protected float cooldownRemaining;
 
     public bool CanUse => cooldownRemaining <= 0f;

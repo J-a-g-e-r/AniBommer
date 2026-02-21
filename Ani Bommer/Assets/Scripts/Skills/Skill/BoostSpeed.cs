@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class BoostSpeed : Skill
 {
-    protected override float Cooldown => 10f;
 
+    protected override float Cooldown => 10f;
     public BoostSpeed()
     {
         // Gán thông tin hiển thị cho skill (dùng trong UI)
-        skillName = "Boost Speed";
         icon = Resources.Load<Sprite>("Icons/BoostSpeed");
     }
 

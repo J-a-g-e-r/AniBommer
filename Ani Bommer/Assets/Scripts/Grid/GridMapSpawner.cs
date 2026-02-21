@@ -112,6 +112,7 @@ public class GridMapSpawner : MonoBehaviour
 
             case TileType.PlayerSpawn:
                 GameObject player = Instantiate(playerPrefab, pos + new Vector3(0,0.5f,0), playerPrefab.transform.rotation);
+                mapData[WorldToGrid(pos).x, WorldToGrid(pos).y] = TileType.Empty; // Đánh dấu ô này là trống sau khi spawn player
                 camSetter.SetTarget(player.transform);
                 var gm = FindObjectOfType<GameManager>();
                 if (gm == null)

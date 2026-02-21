@@ -33,7 +33,6 @@ public class PlayerStats : MonoBehaviour
 
     private void OnBombPlaced()
     {
-        Debug.Log(currentBomb);
         if (currentBomb <= 0) return;
 
         currentBomb--;
@@ -47,5 +46,22 @@ public class PlayerStats : MonoBehaviour
     public bool CanPlaceBomb()
     {
         return currentBomb > 0;
+    }
+
+    public void IncreaseMaxBomb(int amount)
+    {
+        MaxBomb += amount;
+        // Tăng currentBomb tương ứng để player có thể đặt thêm bom ngay
+        currentBomb += amount;
+    }
+
+    public void IncreaseBombRange(int amount)
+    {
+        BombRange += amount;
+    }
+
+    public void IncreaseMoveSpeed(float amount)
+    {
+        MoveSpeed += amount;
     }
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Knight
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  bombRange: 3
+  bombRange: 1
   maxBombs: 3
   startingSkill: 1

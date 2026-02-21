@@ -4,11 +4,9 @@ using UnityEngine;
 public class Shield : Skill
 {
     protected override float Cooldown => 5f;
-
     public Shield()
     {
         // TODO: Đảm bảo có file Assets/Resources/Icons/Shield.png
-        skillName = "Shield";
         icon = Resources.Load<Sprite>("Icons/Shield");
     }
 
