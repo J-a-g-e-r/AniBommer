@@ -30,14 +30,14 @@ public class BombExplode : MonoBehaviour
 
     private void Explode()
     {
-        Instantiate(explosionEffect, transform.position + new Vector3(0, 1, 0), explosionEffect.transform.rotation); //1
+        Instantiate(explosionEffect, transform.position + new Vector3(0, 0.5f, 0), explosionEffect.transform.rotation); //1
 
         StartCoroutine(CreateExplosions(Vector3.forward));
         StartCoroutine(CreateExplosions(Vector3.right));
         StartCoroutine(CreateExplosions(Vector3.back));
         StartCoroutine(CreateExplosions(Vector3.left));
 
-        GetComponent<MeshRenderer>().enabled = false; //2
+        GetComponent<SpriteRenderer>().enabled = false; //2
         isExploded = true;
         GridMapSpawner.Instance.RemoveBomb(grid);
         GameEvents.OnBombExploded?.Invoke();
@@ -65,7 +65,7 @@ public class BombExplode : MonoBehaviour
             {
                 // 💥 Spawn explosion NGAY TẠI collider bị trúng
                 Vector3 hitPos = hit.point;
-                hitPos.y = transform.position.y + 1f;
+                hitPos.y = transform.position.y + 0.5f;
 
                 Instantiate(explosionEffect, hitPos, explosionEffect.transform.rotation);
 
@@ -76,7 +76,7 @@ public class BombExplode : MonoBehaviour
             {
                 // 💥 Spawn explosion ở ô trống
                 Vector3 spawnPos = transform.position + direction * distance;
-                spawnPos.y = transform.position.y + 1f;
+                spawnPos.y = transform.position.y + 0.5f;
 
                 Instantiate(explosionEffect, spawnPos, explosionEffect.transform.rotation);
             }

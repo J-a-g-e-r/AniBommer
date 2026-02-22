@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb5d92cfb0d8c744a58b503f390b72c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombPrefab: {fileID: 8501724340952986575, guid: e6d2505486e061e4ab99256ea14efb39,
+  bombPrefab: {fileID: 2455514516047594410, guid: b2c1a242f3c43ce4e8b8dca7878b4510,
     type: 3}
   characterData: {fileID: 11400000, guid: 2de56b5a056acba41b13277e96e185e1, type: 2}
 --- !u!143 &-2211984451312552811

@@ -27,4 +27,26 @@ public class PlayerSkills : MonoBehaviour
     }
 
     public ISkill[] GetSkills() => skills;
+
+    /// <summary>
+    /// Thêm skill vào slot trống đầu tiên. Trả về true nếu thêm thành công, false nếu không còn slot trống.
+    /// </summary>
+    public bool AddSkill(SkillDictionary skillType)
+    {
+        if (skillType == SkillDictionary.None)
+            return false;
+
+        // Tìm slot trống đầu tiên
+        for (int i = 0; i < skills.Length; i++)
+        {
+            if (skills[i] == null)
+            {
+                skills[i] = SkillFactory.CreateSkill(skillType);
+                GameEvents.OnSkillAdded?.Invoke();
+                return true;
+            }
+        }
+
+        return false; // Không còn slot trống
+    }
 }

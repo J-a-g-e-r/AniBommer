@@ -47,7 +47,7 @@ public class GridMapSpawner : MonoBehaviour
             { E,E,E,D,E,I,I,I,E,D,E,E,E },
             { E,E,E,D,E,E,E,E,E,D,E,P,E },
             { E,E,E,D,E,E,E,E,E,D,E,E,E },
-            { D,D,D,D,E,D,E,D,E,D,D,D,D },
+            { D,D,D,D,E,D,E,D,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,D,D,D,D,D,D,D,D,D,D,D,E },
             { E,D,D,I,E,E,E,E,E,I,D,D,E },
