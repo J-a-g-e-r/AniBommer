@@ -78,6 +78,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -7763916185739463060, guid: 6f1ac757ac336da4cb8e59f6c5b0aed6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7440837640338354081, guid: 6f1ac757ac336da4cb8e59f6c5b0aed6,
         type: 3}
       propertyPath: m_Layer
@@ -193,10 +198,20 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4291366185251047259, guid: 6f1ac757ac336da4cb8e59f6c5b0aed6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4700718891997078985, guid: 6f1ac757ac336da4cb8e59f6c5b0aed6,
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700718891997078985, guid: 6f1ac757ac336da4cb8e59f6c5b0aed6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5079641917847254887, guid: 6f1ac757ac336da4cb8e59f6c5b0aed6,
         type: 3}
@@ -207,6 +222,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209939114210909329, guid: 6f1ac757ac336da4cb8e59f6c5b0aed6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 6f1ac757ac336da4cb8e59f6c5b0aed6,
         type: 3}
@@ -291,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb5d92cfb0d8c744a58b503f390b72c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombPrefab: {fileID: 8501724340952986575, guid: e6d2505486e061e4ab99256ea14efb39,
+  bombPrefab: {fileID: 2455514516047594410, guid: b2c1a242f3c43ce4e8b8dca7878b4510,
     type: 3}
   characterData: {fileID: 11400000, guid: d9ba95b7b1a18c741bf32e873768c4a5, type: 2}
 --- !u!143 &404766554510506220
@@ -332,6 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a87e010d5048340a5de2fdd79ef993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerHealth: 0
   MoveSpeed: 0
   BombRange: 0
   MaxBomb: 0

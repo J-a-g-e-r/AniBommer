@@ -4,6 +4,7 @@ using UnityEngine;
 public class Characters : ScriptableObject
 {
     [Header("Stats")]
+    public int playerHealth;
     public float moveSpeed;
     public int bombRange;
     public int maxBombs;

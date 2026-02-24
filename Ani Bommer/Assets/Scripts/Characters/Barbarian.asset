@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec41430c833c3c2419312c978e0fa37a, type: 3}
   m_Name: Barbarian
   m_EditorClassIdentifier: 
-  moveSpeed: 6
-  bombRange: 1
-  maxBombs: 1
+  playerHealth: 1000
+  moveSpeed: 8
+  bombRange: 3
+  maxBombs: 3
   startingSkill: 1

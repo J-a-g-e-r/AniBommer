@@ -11,8 +11,10 @@ public class GridMapSpawner : MonoBehaviour
     public GameObject[] destructiblePrefabs;
     public GameObject playerPrefab;
     [SerializeField] private CinemachineTargetSetter camSetter;
+    [SerializeField] private int mapId = 0;
 
     private TileType[,] mapData;
+
 
     private float offsetX;
     private float offsetZ;
@@ -31,40 +33,42 @@ public class GridMapSpawner : MonoBehaviour
     }
     void Start()
     {
+
         SpawnMap();
 
     }
 
     void InitMapData()
     {
-        TileType I = TileType.Indestructible;
-        TileType D = TileType.Destructible;
-        TileType E = TileType.Empty;
-        TileType P = TileType.PlayerSpawn;
+        mapData = MapLibrary.GetMap(mapId);
+        //TileType I = TileType.Indestructible;
+        //TileType D = TileType.Destructible;
+        //TileType E = TileType.Empty;
+        //TileType P = TileType.PlayerSpawn;
 
-        mapData = new TileType[19, 13]
-        {
-            { E,E,E,D,E,I,I,I,E,D,E,E,E },
-            { E,E,E,D,E,E,E,E,E,D,E,P,E },
-            { E,E,E,D,E,E,E,E,E,D,E,E,E },
-            { D,D,D,D,E,D,E,D,E,E,E,E,E },
-            { E,E,E,E,E,E,E,E,E,E,E,E,E },
-            { E,D,D,D,D,D,D,D,D,D,D,D,E },
-            { E,D,D,I,E,E,E,E,E,I,D,D,E },
-            { E,D,D,D,E,E,E,E,E,D,D,D,E },
-            { E,D,D,D,E,E,E,E,E,D,D,D,E },
-            { E,D,D,D,E,E,E,E,E,D,D,D,E },
-            { E,D,D,D,E,E,E,E,E,D,D,D,E },
-            { E,D,D,D,E,E,E,E,E,D,D,D,E },
-            { E,D,D,I,E,E,E,E,E,I,D,D,E },
-            { E,D,D,D,D,D,D,D,D,D,D,D,E },
-            { E,E,E,E,E,E,E,E,E,E,E,E,E },
-            { D,D,D,D,E,D,E,D,E,D,D,D,D },
-            { E,E,E,D,E,E,E,E,E,D,E,E,E },
-            { E,E,E,D,E,E,E,E,E,D,E,E,E },
-            { E,E,E,D,E,I,I,I,E,D,E,E,E },
+        //mapData = new TileType[19, 13]
+        //{
+        //    { E,E,E,D,E,I,I,I,E,D,E,E,E },
+        //    { E,E,E,D,E,E,E,E,E,D,E,P,E },
+        //    { E,E,E,D,E,E,E,E,E,D,E,E,E },
+        //    { D,D,D,D,E,D,E,D,E,E,E,E,E },
+        //    { E,E,E,E,E,E,E,E,E,E,E,E,E },
+        //    { E,D,D,D,D,D,D,D,D,D,D,D,E },
+        //    { E,D,D,I,E,E,E,E,E,I,D,D,E },
+        //    { E,D,D,D,E,E,E,E,E,D,D,D,E },
+        //    { E,D,D,D,E,E,E,E,E,D,D,D,E },
+        //    { E,D,D,D,E,E,E,E,E,D,D,D,E },
+        //    { E,D,D,D,E,E,E,E,E,D,D,D,E },
+        //    { E,D,D,D,E,E,E,E,E,D,D,D,E },
+        //    { E,D,D,I,E,E,E,E,E,I,D,D,E },
+        //    { E,D,D,D,D,D,D,D,D,D,D,D,E },
+        //    { E,E,E,E,E,E,E,E,E,E,E,E,E },
+        //    { D,D,D,D,E,D,E,D,E,D,D,D,D },
+        //    { E,E,E,D,E,E,E,E,E,D,E,E,E },
+        //    { E,E,E,D,E,E,E,E,E,D,E,E,E },
+        //    { E,E,E,D,E,I,I,I,E,D,E,E,E },
 
-        };
+        //};
     }
 
     void SpawnMap()

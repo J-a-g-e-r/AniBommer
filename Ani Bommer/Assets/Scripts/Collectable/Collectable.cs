@@ -30,4 +30,17 @@ public class Collectable : MonoBehaviour
 
 
     }
+
+    private void OnEnable()
+    {
+        if (_boxCollider != null)
+            StartCoroutine(EnableColliderDelayed());
+    }
+
+    private IEnumerator EnableColliderDelayed()
+    {
+        _boxCollider.enabled = false;
+        yield return new WaitForSeconds(0.7f);
+        _boxCollider.enabled = true;
+    }
 }

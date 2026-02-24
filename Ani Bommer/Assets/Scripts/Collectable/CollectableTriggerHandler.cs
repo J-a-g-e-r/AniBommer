@@ -19,7 +19,13 @@ public class CollectableTriggerHandler : MonoBehaviour
             _collectable.Collect(other.gameObject);
             Destroy(gameObject,0.3f);
         } 
-        
+
+        else if (other.CompareTag("Explosion"))
+        {
+            Destroy(gameObject);
+        }
+
+
     }
 
 }

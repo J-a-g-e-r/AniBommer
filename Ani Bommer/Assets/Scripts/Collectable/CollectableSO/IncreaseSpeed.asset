@@ -15,4 +15,4 @@ MonoBehaviour:
   CollectClip: {fileID: 8300000, guid: a0824ab91b22edf4e8557e3ec3791cf9, type: 3}
   powerUpType: 2
   IntValue: 0
-  FloatValue: 2
+  FloatValue: 1
