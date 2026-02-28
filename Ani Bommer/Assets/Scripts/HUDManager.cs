@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maxBombText;
     [SerializeField] private TextMeshProUGUI bombRangeText;
     [SerializeField] private TextMeshProUGUI speedText;
+
 
     private void Awake()
     {
@@ -28,13 +30,13 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateMoneyText(int currentAmount)
     {
-        moneyText.text = "x" + currentAmount.ToString();
+        moneyText.text = currentAmount.ToString();
     }
 
     public void UpdateMaxBombText(int currentAmount)
     {
-        maxBombText.text ="x" + currentAmount.ToString();
-        if(currentAmount == 8)
+        maxBombText.text = "x" + currentAmount.ToString();
+        if (currentAmount == 8)
         {
             maxBombText.color = Color.yellow;
         }
@@ -51,17 +53,18 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateSpeedText(float currentAmount)
     {
-        speedText.text = "x" + (currentAmount-7).ToString();
+        speedText.text = "x" + (currentAmount - 7).ToString();
         if (currentAmount == 15)
         {
             speedText.color = Color.yellow;
         }
     }
 
-    public void InitPlayerStats(float health,int maxBomb, int bombRange, float speed)
+    public void InitPlayerStats(float health, int maxBomb, int bombRange, float speed)
     {
         UpdateMaxBombText(maxBomb);
         UpdateBombRangeText(bombRange);
         UpdateSpeedText(speed);
     }
+
 }

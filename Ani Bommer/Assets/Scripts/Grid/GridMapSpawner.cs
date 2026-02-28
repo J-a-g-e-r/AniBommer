@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GridMapSpawner : MonoBehaviour
 {
@@ -188,6 +189,62 @@ public class GridMapSpawner : MonoBehaviour
             mapData[grid.x, grid.y] = TileType.Empty;
         }
     }
+
+
+    public List<Vector2Int> GetEmptyCells()
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        for (int x = 0; x < mapData.GetLength(0); x++)
+        {
+            for (int y = 0; y < mapData.GetLength(1); y++)
+            {
+                if (mapData[x, y] == TileType.Empty)
+                {
+                    result.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public Vector2Int GetRandomEmptyCell()
+    {
+        List<Vector2Int> emptyCells = GetEmptyCells();
+        if (emptyCells == null || emptyCells.Count == 0)
+        {
+            Debug.LogWarning("GridMapSpawner: No empty cells available for spawning!");
+            return Vector2Int.zero;
+        }
+
+        // Lọc những ô không nằm trong vùng cấm quanh tâm map: x(-2,2), z(-2,2)
+        List<Vector2Int> validCells = new List<Vector2Int>();
+        foreach (var cell in emptyCells)
+        {
+            Vector3 worldPos = GridToWorld(cell);
+            if (!IsInForbiddenZone(worldPos))
+            {
+                validCells.Add(cell);
+            }
+        }
+
+        // Nếu không còn ô hợp lệ ngoài vùng cấm, fallback dùng toàn bộ emptyCells
+        if (validCells.Count == 0)
+        {
+            Debug.LogWarning("GridMapSpawner: No cells outside forbidden zone, using all empty cells.");
+            return emptyCells[Random.Range(0, emptyCells.Count)];
+        }
+
+        return validCells[Random.Range(0, validCells.Count)];
+    }
+
+    bool IsInForbiddenZone(Vector3 pos)
+    {
+        return pos.x >= -2f && pos.x <= 2f &&
+               pos.z >= -2f && pos.z <= 2f;
+    }
+
 
 }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private PlayerStats playerStats;
     private BombExplode bombExplode;
+
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Characters characterData;
 
@@ -86,7 +88,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Explosion"))
         {
-            Destroy(this.gameObject);
+            TriggerDeathAnimation();
+            
+            playerStats.TakeDamage((int)playerStats.GetCurrentHealth());
+            Destroy(this.gameObject,0.3f);
         }
     }
 
@@ -110,5 +115,20 @@ public class PlayerController : MonoBehaviour
         GridMapSpawner.Instance.PlaceBomb(grid);
         GameEvents.OnBombPlaced?.Invoke();
 
+    }
+
+    public void TriggerDamagedAnimation()
+    {
+        animator.SetTrigger("IsDamaged");
+    }
+
+    public void TriggerDeathAnimation()
+    {
+        animator.SetTrigger("IsDead");
+    }
+
+    public void TriggerThrowAnimation()
+    {
+        animator.SetTrigger("IsThrowing");
     }
 }

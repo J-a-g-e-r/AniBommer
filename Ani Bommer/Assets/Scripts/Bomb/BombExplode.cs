@@ -7,6 +7,7 @@ public class BombExplode : MonoBehaviour
     // Start is called before the first frame update
     [Header("Bomb Settings")]
     [SerializeField] private GameObject explosionEffect;
+    [SerializeField] private AudioClip explosionSound;
     [SerializeField] private LayerMask levelMask;
     [SerializeField] private float bombCoundownTime = 3f;
     [SerializeField] private float explosionRange ;

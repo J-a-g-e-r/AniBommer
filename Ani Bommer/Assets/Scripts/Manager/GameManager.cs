@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("🔥 RegisterLocalPlayer CALLED");
         StartCoroutine(BindPlayerSkillsNextFrame(player));
+        GameEvents.OnPlayerSpawned?.Invoke();
     }
 
     private IEnumerator BindPlayerSkillsNextFrame(GameObject player)

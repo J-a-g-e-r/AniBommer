@@ -85,7 +85,7 @@ MonoBehaviour:
     type: 3}
   levelMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 704
   bombCoundownTime: 3
   explosionRange: 1
 --- !u!212 &7900525928353780743

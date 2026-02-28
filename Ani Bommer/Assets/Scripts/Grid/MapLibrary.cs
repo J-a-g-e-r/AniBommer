@@ -8,10 +8,10 @@ public static class MapLibrary
     //Map 0
     private static readonly TileType[,] Map0Template = new TileType[19, 13]
         {
-            { E,E,E,D,E,I,I,I,E,D,E,E,E },
-            { E,E,E,D,E,E,E,E,E,D,E,P,E },
-            { E,E,E,D,E,E,E,E,E,D,E,E,E },
-            { D,D,D,D,E,D,E,D,E,E,E,E,E },
+            { E,E,E,D,E,I,I,I,E,E,E,E,E },
+            { E,E,E,D,E,E,E,E,E,E,E,P,E },
+            { E,E,E,D,E,E,E,E,E,E,E,E,E },
+            { D,D,D,D,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,D,D,D,D,D,D,D,D,D,D,D,E },
             { E,D,D,I,E,E,E,E,E,I,D,D,E },
@@ -30,11 +30,36 @@ public static class MapLibrary
 
         };
 
+    private static readonly TileType[,] Map1Template = new TileType[19, 13]
+    {
+            { D,D,D,D,E,I,I,I,E,E,E,E,E },
+            { D,D,D,D,E,E,E,E,E,E,E,P,E },
+            { D,D,D,D,E,E,E,E,E,E,E,E,E },
+            { D,D,D,D,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { D,D,D,D,E,E,E,E,E,D,D,D,D },
+            { E,E,E,D,E,E,E,E,E,D,E,E,E },
+            { E,E,E,D,E,E,E,E,E,D,E,E,E },
+            { E,E,E,D,E,I,I,I,E,D,E,E,E },
+
+    };
+
     public static TileType[,] GetMap(int mapId)
     {
         return mapId switch
         {
             0 => Clone(Map0Template),
+            1 => Clone(Map1Template),
             _ => Clone(Map0Template)
         };
     }

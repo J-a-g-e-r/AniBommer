@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : MonoBehaviour, IHealth
 {
     [Header("Player Stats")]
     public float PlayerHealth;
@@ -12,9 +12,16 @@ public class PlayerStats : MonoBehaviour
     private int limitedBombRange = 6;
     private int limitedBomb = 8;
 
-
-
+    
+    private float currentHealth;
     private int currentBomb;
+
+    public bool IsDead => currentHealth <= 0;
+
+
+    private PlayerController playerController;
+    private HealthBar healthBar;
+    private PlayerEffects playerEffects;
     public void Init(Characters data)
     {
         PlayerHealth = data.playerHealth;
@@ -23,7 +30,14 @@ public class PlayerStats : MonoBehaviour
         MaxBomb = data.maxBombs;
 
         currentBomb = MaxBomb;
-        HUDManager.instance.InitPlayerStats(PlayerHealth, MaxBomb, currentBomb, MoveSpeed);
+        currentHealth = PlayerHealth;
+
+        playerController = GetComponent<PlayerController>();
+        healthBar = GetComponentInChildren<HealthBar>();
+        playerEffects = GetComponent<PlayerEffects>();
+        healthBar.Init(PlayerHealth);
+        HUDManager.instance.InitPlayerStats(PlayerHealth, MaxBomb, BombRange, MoveSpeed);
+
     }
 
     private void OnEnable()
@@ -79,5 +93,35 @@ public class PlayerStats : MonoBehaviour
         if (MoveSpeed >= limitedMoveSpeed) return;
         MoveSpeed += amount;
         HUDManager.instance.UpdateSpeedText(MoveSpeed);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (IsDead) return;
+        currentHealth -= damage;
+        healthBar.UpdateHealth(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        Debug.Log($"Player took {damage} damage, current HP: {currentHealth}/{PlayerHealth}");
+        playerController?.TriggerDamagedAnimation();
+        playerEffects?.PlayGetHitSound();
+        playerEffects?.PlayDamageEffect();
+    }
+
+    private void Die()
+    {
+        // Add death logic here (e.g., play animation, show game over screen, etc.)
+        Debug.Log("Player has died!");
+        // For now, we just destroy the player object
+        playerController?.TriggerDeathAnimation();
+        Destroy(gameObject,1f);
+    }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }
