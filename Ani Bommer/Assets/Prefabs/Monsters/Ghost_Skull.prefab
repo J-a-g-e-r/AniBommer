@@ -1534,7 +1534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f602424809c59e4b8300122b5004f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 36
+  maxHP: 1
+  collectableDrops: []
 --- !u!114 &8006016934557723284
 MonoBehaviour:
   m_ObjectHideFlags: 0

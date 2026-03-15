@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MonsterWaveSpawner : MonoBehaviour
@@ -15,6 +16,9 @@ public class MonsterWaveSpawner : MonoBehaviour
     private int currentWaveIndex = -1;
     private int aliveMonsters = 0;
     private Coroutine waveTimerCoroutine;
+
+    [Header("WaveUI")]
+    [SerializeField] private TextMeshProUGUI waveUIText;
 
 
     private void Start()
@@ -38,11 +42,13 @@ public class MonsterWaveSpawner : MonoBehaviour
         if (Waves == null || currentWaveIndex >= Waves.Count)
         {
             Debug.Log("All waves completed!");
+            GameManager.Instance?.OnGameWin();
             return;
         }
 
         MonsterWave wave = Waves[currentWaveIndex];
         Debug.Log($"Starting Wave {currentWaveIndex + 1}");
+        WaveUITextUpdate(currentWaveIndex + 1);
         SpawnWave(wave);
         if (wave.WaveDuration > 0f)
         {
@@ -116,5 +122,13 @@ public class MonsterWaveSpawner : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Debug.Log("Wave timeout!");
         StartNextWave();
+    }
+
+    private void WaveUITextUpdate(int waveNumber)
+    {
+        if (waveUIText != null)
+        {
+            waveUIText.text = $"Wave: {waveNumber}/{Waves.Count}";
+        }
     }
 }

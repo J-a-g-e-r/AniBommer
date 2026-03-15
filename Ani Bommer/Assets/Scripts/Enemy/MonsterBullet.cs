@@ -29,6 +29,10 @@ public class MonsterBullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        else if (other.CompareTag("Environment"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     public int GetDamage(int MonsterDamage)

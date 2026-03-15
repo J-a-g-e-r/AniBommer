@@ -7,6 +7,7 @@ TagManager:
   - Explosion
   - Monster
   - FxTemporaire
+  - Environment
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Breakable Blocks
   - Player
   - Monster
-  - 
+  - MonsterProjectile
   - 
   - 
   - 

@@ -22,6 +22,8 @@ public class MoneyManager : MonoBehaviour
 
     public void IncreaseMoney(int amount)
     {
+        DataManager.Instance.PlayerData.gold += amount;
+        DataManager.Instance.SavePlayerData();
         CurrentMoney += amount;
         HUDManager.instance.UpdateMoneyText(CurrentMoney);
 

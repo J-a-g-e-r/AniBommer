@@ -118,6 +118,8 @@ public class PlayerStats : MonoBehaviour, IHealth
         // For now, we just destroy the player object
         playerController?.TriggerDeathAnimation();
         Destroy(gameObject,1f);
+        GameManager.Instance?.OnGameLose();
+
     }
 
     public float GetCurrentHealth()

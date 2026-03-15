@@ -33,15 +33,15 @@ public static class MapLibrary
     private static readonly TileType[,] Map1Template = new TileType[19, 13]
     {
             { D,D,D,D,E,I,I,I,E,E,E,E,E },
-            { D,D,D,D,E,E,E,E,E,E,E,P,E },
             { D,D,D,D,E,E,E,E,E,E,E,E,E },
             { D,D,D,D,E,E,E,E,E,E,E,E,E },
+            { D,D,D,D,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
-            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { P,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },
             { E,E,E,E,E,E,E,E,E,E,E,E,E },

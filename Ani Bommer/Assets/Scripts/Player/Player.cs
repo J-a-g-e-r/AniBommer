@@ -71,6 +71,15 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Swipe"",
+                    ""type"": ""Value"",
+                    ""id"": ""6feb9901-58ae-4ed4-b01c-c52cb47d6e94"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -183,6 +192,28 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""action"": ""Skill3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52d078e7-8328-4671-9d85-0fb112cfa443"",
+                    ""path"": ""<Touchscreen>/primaryTouch/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1817326-edb3-4618-9368-b4190306b91e"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -196,6 +227,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_PlayerController_Skill1 = m_PlayerController.FindAction("Skill1", throwIfNotFound: true);
         m_PlayerController_Skill2 = m_PlayerController.FindAction("Skill2", throwIfNotFound: true);
         m_PlayerController_Skill3 = m_PlayerController.FindAction("Skill3", throwIfNotFound: true);
+        m_PlayerController_Swipe = m_PlayerController.FindAction("Swipe", throwIfNotFound: true);
     }
 
     ~@Player()
@@ -267,6 +299,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerController_Skill1;
     private readonly InputAction m_PlayerController_Skill2;
     private readonly InputAction m_PlayerController_Skill3;
+    private readonly InputAction m_PlayerController_Swipe;
     public struct PlayerControllerActions
     {
         private @Player m_Wrapper;
@@ -276,6 +309,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         public InputAction @Skill1 => m_Wrapper.m_PlayerController_Skill1;
         public InputAction @Skill2 => m_Wrapper.m_PlayerController_Skill2;
         public InputAction @Skill3 => m_Wrapper.m_PlayerController_Skill3;
+        public InputAction @Swipe => m_Wrapper.m_PlayerController_Swipe;
         public InputActionMap Get() { return m_Wrapper.m_PlayerController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +334,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Skill3.started += instance.OnSkill3;
             @Skill3.performed += instance.OnSkill3;
             @Skill3.canceled += instance.OnSkill3;
+            @Swipe.started += instance.OnSwipe;
+            @Swipe.performed += instance.OnSwipe;
+            @Swipe.canceled += instance.OnSwipe;
         }
 
         private void UnregisterCallbacks(IPlayerControllerActions instance)
@@ -319,6 +356,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Skill3.started -= instance.OnSkill3;
             @Skill3.performed -= instance.OnSkill3;
             @Skill3.canceled -= instance.OnSkill3;
+            @Swipe.started -= instance.OnSwipe;
+            @Swipe.performed -= instance.OnSwipe;
+            @Swipe.canceled -= instance.OnSwipe;
         }
 
         public void RemoveCallbacks(IPlayerControllerActions instance)
@@ -343,5 +383,6 @@ public partial class @Player: IInputActionCollection2, IDisposable
         void OnSkill1(InputAction.CallbackContext context);
         void OnSkill2(InputAction.CallbackContext context);
         void OnSkill3(InputAction.CallbackContext context);
+        void OnSwipe(InputAction.CallbackContext context);
     }
 }

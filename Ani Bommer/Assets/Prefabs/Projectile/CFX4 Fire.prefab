@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7347303386385589186}
   - component: {fileID: 4001738581827775612}
   - component: {fileID: 7933157383005541673}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 8360483488640420386}
   - component: {fileID: 6431127077633196664}
   - component: {fileID: 2324768901661253007}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CFX4 Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4774,9 +4774,9 @@ GameObject:
   - component: {fileID: 7039540934972704008}
   - component: {fileID: -8404125510672252369}
   - component: {fileID: -5586635368652471747}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CFX4 Fire
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9564,5 +9564,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 27
+  damage: 20
   lifeTime: 3

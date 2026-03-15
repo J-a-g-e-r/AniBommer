@@ -11,6 +11,7 @@ public class PlayerEffects : MonoBehaviour
 
     [Header("Particle Effects")]
     [SerializeField] private ParticleSystem _hitEffect;
+    //[SerializeField] private ParticleSystem _spawnEffect;
 
     #region SFX Effect
 
@@ -25,7 +26,7 @@ public class PlayerEffects : MonoBehaviour
     #endregion
 
 
-    #region Hit Effect
+    #region Effect
     public void PlayDamageEffect()
     {
         //Play particle effect
@@ -38,5 +39,14 @@ public class PlayerEffects : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(_getHitClip);
     }
+
+    //public void PlaySpawnEffect()
+    //{
+    //    if(_spawnEffect != null)
+    //    {
+    //        _spawnEffect.Play();
+    //    }
+    //}
+
     #endregion
 }
