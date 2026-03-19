@@ -29,7 +29,7 @@ public class MonsterBullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (other.CompareTag("Environment"))
+        else if (other.CompareTag("Environment") || other.CompareTag("Shield"))
         {
             Destroy(gameObject);
         }

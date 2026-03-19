@@ -9,6 +9,7 @@ public class CharacterConfig : ScriptableObject
     public string displayName;
     public Sprite sprite;
     public GameObject prefab;   
-    public Characters stats;    
+    public Characters stats;
+    public GameObject prefabModel;
 }
 

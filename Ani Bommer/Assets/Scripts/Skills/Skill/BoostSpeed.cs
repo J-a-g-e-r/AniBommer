@@ -8,15 +8,17 @@ public class BoostSpeed : Skill
     public BoostSpeed()
     {
         // Gán thông tin hiển thị cho skill (dùng trong UI)
-        icon = Resources.Load<Sprite>("Icons/BoostSpeed");
+        icon = Resources.Load<Sprite>("Skills/Icons/BoostSpeed");
     }
 
     protected override void Use(GameObject owner)
     {
         var mono = owner.GetComponent<MonoBehaviour>();
+        var userEffects = owner.GetComponent<PlayerEffects>();
         if (mono != null)
         {
             mono.StartCoroutine(Boost(owner));
+            userEffects?.PlayBoostSpeedSound();
         }
     }
 

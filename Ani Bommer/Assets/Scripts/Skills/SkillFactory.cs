@@ -10,6 +10,10 @@ public static class SkillFactory
             case SkillDictionary.Shield:
                 return new Shield();
 
+            case SkillDictionary.Healing:
+                return new Healing();
+            case SkillDictionary.Slash:
+                return new Slash();
             default:
                 return null;
         }

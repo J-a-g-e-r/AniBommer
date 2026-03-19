@@ -8,6 +8,7 @@ TagManager:
   - Monster
   - FxTemporaire
   - Environment
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Player
   - Monster
   - MonsterProjectile
-  - 
+  - Shield
   - 
   - 
   - 

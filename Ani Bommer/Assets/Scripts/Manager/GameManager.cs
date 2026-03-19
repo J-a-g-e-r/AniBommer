@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     public async void OnGameWin()
     {
         AudioManager.Instance?.PlayWinSound();
+        AudioManager.Instance.FadeOutBGM(1.5f);
         await UniTask.Delay(1500); // Đợi 0.5s để đảm bảo mọi thứ đã ổn định trước khi hiển thị panel
         ShowPanel(winPanel);
         await UniTask.Delay((int)(animationDuration * 1000)); // Đợi animation hoàn thành trước khi phát âm thanh
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
     public async void OnGameLose()
     {
         AudioManager.Instance?.PlayLoseSound();
+        AudioManager.Instance.FadeOutBGM(1.5f);
         await UniTask.Delay(1500); // Đợi 0.5s để đảm bảo mọi thứ đã ổn định trước khi hiển thị panel
         ShowPanel(losePanel);
         await UniTask.Delay((int)(animationDuration * 1000)); // Đợi animation hoàn thành trước khi phát âm thanh
@@ -109,6 +111,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f; // Đảm bảo game không bị tạm dừng
+        AudioManager.Instance.RestartBGM();
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 

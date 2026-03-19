@@ -121,4 +121,47 @@ public class AudioManager : MonoBehaviour
     // (Tuỳ chọn) để UI scene nào cũng tự set slider đúng giá trị đã lưu
     public float GetSavedBGM01() => PlayerPrefs.GetFloat(PREF_BGM, 1f);
     public float GetSavedSFX01() => PlayerPrefs.GetFloat(PREF_SFX, 1f);
+
+    private Coroutine _fadeCoroutine;
+
+    public void FadeOutBGM(float fadeDuration = 1.5f)
+    {
+        if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+        _fadeCoroutine = StartCoroutine(FadeOutRoutine(fadeDuration));
+    }
+
+    private IEnumerator FadeOutRoutine(float duration)
+    {
+        // Lấy volume hiện tại của mixer (dB)
+        _mixer.GetFloat(_bgmVolumeParam, out float currentDb);
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float newDb = Mathf.Lerp(currentDb, MIN_DB, elapsed / duration);
+            _mixer.SetFloat(_bgmVolumeParam, newDb);
+            yield return null;
+        }
+
+        _bgmSource.Stop();
+        _fadeCoroutine = null;
+
+        // Reset lại volume như đã lưu để khi restart play lại bình thường
+        float savedVolume = PlayerPrefs.GetFloat(PREF_BGM, 1f);
+        SetBGMVolume01(savedVolume, save: false);
+    }
+
+    public void RestartBGM()
+    {
+        if (_fadeCoroutine != null)
+        {
+            StopCoroutine(_fadeCoroutine);
+            _fadeCoroutine = null;
+        }
+
+        float savedVolume = PlayerPrefs.GetFloat(PREF_BGM, 1f);
+        SetBGMVolume01(savedVolume, save: false);
+        _bgmSource.Play();
+    }
 }

@@ -86,6 +86,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (playerStats.IsInvincible)
+            return;
+
         if (other.CompareTag("Explosion"))
         {
             TriggerDeathAnimation();

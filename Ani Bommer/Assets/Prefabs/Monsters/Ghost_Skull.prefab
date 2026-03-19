@@ -556,7 +556,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 96fd67db7fdf9484891b2a7becf3d62c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.59
+      value: -8.325
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96fd67db7fdf9484891b2a7becf3d62c,
         type: 3}
@@ -571,17 +571,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 96fd67db7fdf9484891b2a7becf3d62c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.061919555
+      value: 0.62837046
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96fd67db7fdf9484891b2a7becf3d62c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96fd67db7fdf9484891b2a7becf3d62c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.99808115
+      value: -0.7779142
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96fd67db7fdf9484891b2a7becf3d62c,
         type: 3}
@@ -596,7 +596,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 96fd67db7fdf9484891b2a7becf3d62c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -187.1
+      value: -102.14
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96fd67db7fdf9484891b2a7becf3d62c,
         type: 3}
@@ -1624,6 +1624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   cooldown: 1
+  monsterType: 2
 --- !u!95 &101061946372286062
 Animator:
   serializedVersion: 5

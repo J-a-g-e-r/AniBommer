@@ -15,6 +15,9 @@ MonoBehaviour:
   characters:
   - {fileID: 11400000, guid: 5673c5230244ef946ac032c9ad23c69c, type: 2}
   - {fileID: 11400000, guid: 04381aabd73cb9a4aaefa5cdbbcffb56, type: 2}
+  - {fileID: 11400000, guid: b9f0bd48d32a8784b95f75ffa5b90fbb, type: 2}
+  - {fileID: 11400000, guid: 5954737fcddd84147ac30f43a676a821, type: 2}
+  - {fileID: 11400000, guid: 8cd2805fa8c733e48926aa508668490a, type: 2}
   bombs:
   - {fileID: 11400000, guid: e4fc94a274ad88048b4bc57485c40338, type: 2}
   - {fileID: 11400000, guid: b1951f4d0ec240749b310dfc885485a4, type: 2}

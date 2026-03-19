@@ -83,6 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 5260133937064929594, guid: 5d41669d0ae969644a6d7d4eb30b8f93,
     type: 3}
+  explosionSound: {fileID: 8300000, guid: 0ced6cce243a03e49adf2eac59178a9c, type: 3}
   levelMask:
     serializedVersion: 2
     m_Bits: 192

@@ -1,4 +1,12 @@
 using UnityEngine;
+using System.Collections;
+public enum PLayerState
+{
+    Slow,
+    Normal,
+    Poisoned,
+    Freezing,
+}
 
 public class PlayerStats : MonoBehaviour, IHealth
 {
@@ -17,7 +25,14 @@ public class PlayerStats : MonoBehaviour, IHealth
     private int currentBomb;
 
     public bool IsDead => currentHealth <= 0;
+    public bool IsInvincible { get; set; }
 
+    private bool isPoisoned;
+    private Coroutine poisonCoroutine;
+
+    private bool isSlowed;
+    private Coroutine slowCoroutine;
+    private float currentSlowAmount = 0f;
 
     private PlayerController playerController;
     private HealthBar healthBar;
@@ -97,7 +112,7 @@ public class PlayerStats : MonoBehaviour, IHealth
 
     public void TakeDamage(int damage)
     {
-        if (IsDead) return;
+        if (IsDead || IsInvincible) return;
         currentHealth -= damage;
         healthBar.UpdateHealth(currentHealth);
 
@@ -122,8 +137,95 @@ public class PlayerStats : MonoBehaviour, IHealth
 
     }
 
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+        if(currentHealth > PlayerHealth) currentHealth = PlayerHealth;
+        healthBar.UpdateHealth(currentHealth);
+    }
+
     public float GetCurrentHealth()
     {
         return currentHealth;
+    }
+
+    public void ApplyPoison(int damagePerSecond, float duration)
+    {
+        if(IsDead || IsInvincible) return;
+        // Nếu đang trúng độc rồi thì dừng cái cũ để reset lại thời gian trúng độc mới
+        if (!isPoisoned)
+        {
+            playerEffects.PlayPoisonedEffect();
+        }
+        if (isPoisoned && poisonCoroutine != null)
+        {
+            StopCoroutine(poisonCoroutine);
+        }
+
+        poisonCoroutine = StartCoroutine(PoisonRoutine(damagePerSecond, duration));
+    }
+
+    //Trungs ddoojc
+    private IEnumerator PoisonRoutine(int damagePerSecond, float duration)
+    {
+        isPoisoned = true;
+        float elapsed = 0f;
+
+        // Có thể thêm hiệu ứng màu sắc ở đây nếu muốn
+        Debug.Log("Player bị trúng độc!");
+
+        while (elapsed < duration)
+        {
+            // Kiểm tra nếu player chết trong lúc đang dính độc thì thoát
+            if (IsDead) yield break;
+
+            // Gọi hàm TakeDamage có sẵn của bạn
+            TakeDamage(damagePerSecond);
+
+            // Chờ 1 giây trước khi trừ máu tiếp
+            yield return new WaitForSeconds(1f);
+            elapsed += 1f;
+        }
+
+        isPoisoned = false;
+        poisonCoroutine = null;
+        Debug.Log("Player đã hết trúng độc.");
+    }
+
+
+    public void ApplySlow(float slowPercent, float duration)
+    {
+        if (IsDead || IsInvincible) return;
+
+        if (!isSlowed)
+        {
+            playerEffects.PlaySlowEffect(); // Gọi effect slow 1 lần
+        }
+
+        if (isSlowed && slowCoroutine != null)
+        {
+            StopCoroutine(slowCoroutine);
+        }
+        slowCoroutine = StartCoroutine(SlowRoutine(slowPercent, duration));
+    }
+
+    private IEnumerator SlowRoutine(float slowPercent, float duration)
+    {
+        isSlowed = true;
+
+        // Hoàn trả slow cũ (nếu bị cắn lại trước khi hết duration)
+        MoveSpeed += currentSlowAmount;
+        // Áp dụng slow mới
+        currentSlowAmount = slowPercent;
+        MoveSpeed -= currentSlowAmount;
+
+        yield return new WaitForSeconds(duration);
+
+        // Chỉ hoàn trả đúng lượng đã trừ
+        MoveSpeed += currentSlowAmount;
+        currentSlowAmount = 0f;
+
+        isSlowed = false;
+        slowCoroutine = null;
     }
 }

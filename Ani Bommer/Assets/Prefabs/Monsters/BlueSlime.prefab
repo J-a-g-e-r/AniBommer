@@ -1240,6 +1240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 10
+  collectableDrops: []
 --- !u!114 &3493743294404213475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,6 +1281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   cooldown: 0.5
+  monsterType: 1
 --- !u!54 &5565113803968255665
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class GridMapSpawner : MonoBehaviour
     public GameObject[] indestructiblePrefabs;
     public GameObject[] destructiblePrefabs;
     public GameObject playerPrefab;
+    [SerializeField] private GameDatabase gameDatabase;
     [SerializeField] private CinemachineTargetSetter camSetter;
     [SerializeField] private int mapId = 0;
 
@@ -116,8 +117,10 @@ public class GridMapSpawner : MonoBehaviour
                 break;
 
             case TileType.PlayerSpawn:
-                GameObject player = Instantiate(playerPrefab, pos + new Vector3(0,0.5f,0), playerPrefab.transform.rotation);
-                mapData[WorldToGrid(pos).x, WorldToGrid(pos).y] = TileType.Empty; // Đánh dấu ô này là trống sau khi spawn player
+                GameObject playerPrefabToSpawn = GetPlayerPrefabFromData();
+
+                GameObject player = Instantiate(playerPrefabToSpawn, pos + new Vector3(0, 0.5f, 0), playerPrefabToSpawn.transform.rotation);
+                mapData[WorldToGrid(pos).x, WorldToGrid(pos).y] = TileType.Empty;
                 camSetter.SetTarget(player.transform);
                 var gm = FindObjectOfType<GameManager>();
                 if (gm == null)
@@ -245,7 +248,47 @@ public class GridMapSpawner : MonoBehaviour
                pos.z >= -2f && pos.z <= 2f;
     }
 
+    private GameObject GetPlayerPrefabFromData()
+    {
+        // Kiểm tra DataManager và PlayerData
+        if (DataManager.Instance == null || DataManager.Instance.PlayerData == null)
+        {
+            Debug.LogWarning("⚠️ DataManager hoặc PlayerData chưa được khởi tạo, sử dụng prefab mặc định");
+            return playerPrefab;
+        }
 
+        string equippedCharacterId = DataManager.Instance.PlayerData.equippedCharacterId;
+
+        if (string.IsNullOrEmpty(equippedCharacterId))
+        {
+            Debug.LogWarning("⚠️ equippedCharacterId rỗng, sử dụng prefab mặc định");
+            return playerPrefab;
+        }
+
+        // Kiểm tra GameDatabase
+        if (gameDatabase == null)
+        {
+            Debug.LogError("❌ GameDatabase chưa được gán trong Inspector!");
+            return playerPrefab;
+        }
+
+        // Lấy CharacterConfig từ GameDatabase
+        CharacterConfig characterConfig = gameDatabase.GetCharacter(equippedCharacterId);
+
+        if (characterConfig == null)
+        {
+            Debug.LogError($"❌ Không tìm thấy CharacterConfig với id: {equippedCharacterId}");
+            return playerPrefab;
+        }
+
+        if (characterConfig.prefab == null)
+        {
+            Debug.LogError($"❌ CharacterConfig {equippedCharacterId} không có prefab!");
+            return playerPrefab;
+        }
+
+        return characterConfig.prefab;
+    }
 }
 
 

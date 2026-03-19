@@ -82,11 +82,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf86c4adf66d8ab4c917ae06f2cd3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 5260133937064929594, guid: 5d41669d0ae969644a6d7d4eb30b8f93,
+  explosionEffect: {fileID: 6107957188317416018, guid: 24a411cbcbad0d643981ab53b6202c9d,
     type: 3}
+  explosionSound: {fileID: 8300000, guid: 0ced6cce243a03e49adf2eac59178a9c, type: 3}
   levelMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 2240
   bombCoundownTime: 3
   explosionRange: 3
 --- !u!212 &8316062953417161349

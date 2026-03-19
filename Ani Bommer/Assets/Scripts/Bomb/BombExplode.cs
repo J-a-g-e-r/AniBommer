@@ -32,6 +32,7 @@ public class BombExplode : MonoBehaviour
     private void Explode()
     {
         Instantiate(explosionEffect, transform.position + new Vector3(0, 0.5f, 0), explosionEffect.transform.rotation); //1
+        AudioManager.Instance.PlaySound(explosionSound);
 
         StartCoroutine(CreateExplosions(Vector3.forward));
         StartCoroutine(CreateExplosions(Vector3.right));
