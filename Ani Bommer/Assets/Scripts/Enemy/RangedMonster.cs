@@ -1,4 +1,5 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RangedMonster : MonoBehaviour, IMonsterAttack
 {
@@ -8,6 +9,7 @@ public class RangedMonster : MonoBehaviour, IMonsterAttack
     [SerializeField] private int damage = 1;
     [SerializeField] private float rotateSpeed = 8f;
     [SerializeField] private GameObject rotateRoot;
+    [SerializeField] private MonsterTargetSensor sensor;
 
     private float attackTimer;
     private GameObject target;
@@ -19,6 +21,36 @@ public class RangedMonster : MonoBehaviour, IMonsterAttack
         {
             bullet.GetDamage(damage);
         }
+    }
+
+    private void OnEnable()
+    {
+        // Đăng ký nhận sự kiện từ Sensor
+        if (sensor != null)
+        {
+            sensor.OnTargetEnter += HandleTargetEnter;
+            sensor.OnTargetExit += HandleTargetExit;
+        }
+    }
+
+    private void OnDisable()
+    {
+        // Hủy đăng ký khi object bị ẩn/hủy để tránh lỗi bộ nhớ
+        if (sensor != null)
+        {
+            sensor.OnTargetEnter -= HandleTargetEnter;
+            sensor.OnTargetExit -= HandleTargetExit;
+        }
+    }
+
+    private void HandleTargetEnter(Transform targetTransform)
+    {
+        target = targetTransform.gameObject;
+    }
+
+    private void HandleTargetExit()
+    {
+        target = null;
     }
 
     private void Update()
@@ -48,22 +80,22 @@ public class RangedMonster : MonoBehaviour, IMonsterAttack
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            target = other.gameObject;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        target = other.gameObject;
          
-        }
-    }
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            target = null;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        target = null;
+    //    }
+    //}
 
     private void RotateTowardsTarget()
     {

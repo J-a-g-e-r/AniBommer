@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Barbarian
   m_EditorClassIdentifier: 
   playerHealth: 1000
-  moveSpeed: 8
+  moveSpeed: 12
   bombRange: 3
   maxBombs: 3
   startingSkill: 1

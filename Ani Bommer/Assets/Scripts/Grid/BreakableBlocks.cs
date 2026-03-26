@@ -9,7 +9,7 @@ public class BreakableBlock : MonoBehaviour
 
     [Header("Collectable Drops")]
     [SerializeField] private List<CollectableDrop> collectableDrops = new List<CollectableDrop>();
-
+    [SerializeField] private AudioClip breakSound;
     public void SetGridPosition(Vector2Int grid)
     {
         gridPos = grid;
@@ -31,6 +31,7 @@ public class BreakableBlock : MonoBehaviour
         // TODO: spawn break VFX
         SpawnCollectables();
         GridMapSpawner.Instance.RemoveDestructible(gridPos);
+        AudioManager.Instance.PlaySound(breakSound);
         Destroy(gameObject);
     }
 

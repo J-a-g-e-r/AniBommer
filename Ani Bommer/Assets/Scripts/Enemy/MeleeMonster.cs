@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum MonsterType
 {
@@ -13,6 +13,13 @@ public class MeleeMonster : MonoBehaviour, IMonsterAttack
     [SerializeField] private float cooldown = 1f;
     [SerializeField] private MonsterType monsterType = MonsterType.Normal;
     private float lastAttackTime;
+    private BoxCollider attackCollider;
+
+    private void Start()
+    {
+        // Lấy BoxCollider gắn trên cùng GameObject này
+        attackCollider = FinderHelper.GetComponentOnObject<BoxCollider>(gameObject);
+    }
 
     public void Attack(GameObject target)
     {
@@ -41,8 +48,10 @@ public class MeleeMonster : MonoBehaviour, IMonsterAttack
 
     private void OnTriggerStay(Collider other)
     {
-        Attack(other.gameObject);
-
+        if (other.CompareTag("Player") && other.bounds.Intersects(attackCollider.bounds))
+        {
+            Attack(other.gameObject);
+        }
     }
 
 

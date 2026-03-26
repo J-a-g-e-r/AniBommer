@@ -38,7 +38,16 @@ public class PlayerData
 
         // ví dụ: cho sẵn 1 nhân vật + 1 bomb + 1 màn đầu
         data.ownedCharacters.Add("Char_Default");
+        data.ownedCharacters.Add("Barbarian");
+        data.ownedCharacters.Add("Mage");
+        data.ownedCharacters.Add("Rogue");
+        data.ownedCharacters.Add("Ranger");
+
         data.ownedBombs.Add("Bomb_Default");
+        data.ownedBombs.Add("B02");
+        data.ownedBombs.Add("B03");
+        data.ownedBombs.Add("B04");
+
         data.equippedCharacterId = "Char_Default";
         data.equippedBombId = "Bomb_Default";
 

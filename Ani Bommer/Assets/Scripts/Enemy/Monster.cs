@@ -10,11 +10,18 @@ public class Monster : MonoBehaviour,IHealth
     [SerializeField] private List<CollectableDrop> collectableDrops = new List<CollectableDrop>();
     private int currentHP;
 
+    [Header("Damage Popup")]
+    [SerializeField] private DamageNumberPopup damageNumberPrefab;
+    [SerializeField] private Vector3 damagePopupOffset = new Vector3(0f, 5f, 0f);
+    
+    
     public bool IsDead => currentHP <= 0;
 
     private HealthBar healthBar;
 
     private MonsterWaveSpawner waveSpawner;
+
+
 
     public void Init(MonsterWaveSpawner spawner)
     {
@@ -23,6 +30,7 @@ public class Monster : MonoBehaviour,IHealth
 
     private void Awake()
     {
+
         currentHP = maxHP;
         healthBar = GetComponentInChildren<HealthBar>();
         if (healthBar != null)
@@ -30,11 +38,26 @@ public class Monster : MonoBehaviour,IHealth
             healthBar.Init(maxHP);
         }
     }
+    private void SpawnDamageNumber(int amount)
+    {
+        if (damageNumberPrefab == null || amount <= 0) return;
+
+        Vector3 pos = transform.position + damagePopupOffset;
+        var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity * Quaternion.Euler(65,0,0));
+        popup.InitDamage(amount);
+    }
 
     public void TakeDamage(int damage)
     {
         if (IsDead) return;
-        currentHP -= damage;
+        int oldHP = currentHP;
+        currentHP = Mathf.Max(0, currentHP - damage);
+
+        int deducted = oldHP - currentHP;
+        //currentHP -= damage;
+        if (deducted > 0)
+            SpawnDamageNumber(deducted);
+
         if (currentHP <= 0)
         {
             Die();
@@ -42,6 +65,7 @@ public class Monster : MonoBehaviour,IHealth
         Debug.Log($"Monster took {damage} damage, current HP: {currentHP}/{maxHP}");
         healthBar?.UpdateHealth(currentHP);
         MonsterController monsterController = GetComponent<MonsterController>();
+
         monsterController?.TriggerDamagedAnimation();
     }
 

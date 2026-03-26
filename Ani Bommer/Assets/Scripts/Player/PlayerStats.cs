@@ -37,6 +37,12 @@ public class PlayerStats : MonoBehaviour, IHealth
     private PlayerController playerController;
     private HealthBar healthBar;
     private PlayerEffects playerEffects;
+
+
+    [Header("Damage Popup")]
+    [SerializeField] private DamageNumberPopup damageNumberPrefab;
+    [SerializeField] private Vector3 damagePopupOffset = new Vector3(0f, 4f, 0f);
+
     public void Init(Characters data)
     {
         PlayerHealth = data.playerHealth;
@@ -110,12 +116,28 @@ public class PlayerStats : MonoBehaviour, IHealth
         HUDManager.instance.UpdateSpeedText(MoveSpeed);
     }
 
+
+    private void SpawnDamageNumber(int amount)
+    {
+        if (damageNumberPrefab == null || amount <= 0) return;
+
+        Vector3 pos = transform.position + damagePopupOffset;
+        var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity);
+        popup.InitDamage(amount);
+    }
     public void TakeDamage(int damage)
     {
         if (IsDead || IsInvincible) return;
-        currentHealth -= damage;
+
+        float oldHealth = currentHealth;
+        currentHealth = Mathf.Max(0, currentHealth - damage);
+
+        int deducted = Mathf.RoundToInt(oldHealth - currentHealth);
+
         healthBar.UpdateHealth(currentHealth);
 
+        if (deducted > 0)
+            SpawnDamageNumber(deducted);
         if (currentHealth <= 0)
         {
             Die();
@@ -139,9 +161,24 @@ public class PlayerStats : MonoBehaviour, IHealth
 
     public void Heal(int amount)
     {
-        currentHealth += amount;
-        if(currentHealth > PlayerHealth) currentHealth = PlayerHealth;
+        if (amount <= 0) return;
+
+        float oldHealth = currentHealth;
+        currentHealth = Mathf.Min(currentHealth + amount, PlayerHealth);
+
+        int healed = Mathf.RoundToInt(currentHealth - oldHealth);
+
         healthBar.UpdateHealth(currentHealth);
+
+        if (healed > 0)
+        {
+            if (damageNumberPrefab != null)
+            {
+                Vector3 pos = transform.position + damagePopupOffset;
+                var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity);
+                popup.InitHeal(healed);
+            }
+        }
     }
 
     public float GetCurrentHealth()

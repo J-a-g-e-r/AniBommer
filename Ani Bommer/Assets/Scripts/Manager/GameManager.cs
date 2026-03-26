@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.FadeOutBGM(1.5f);
         await UniTask.Delay(1500); // Đợi 0.5s để đảm bảo mọi thứ đã ổn định trước khi hiển thị panel
         ShowPanel(winPanel);
+        losePanel?.gameObject.SetActive(false); // Ẩn panel thua nếu đang hiển thị
         await UniTask.Delay((int)(animationDuration * 1000)); // Đợi animation hoàn thành trước khi phát âm thanh
         Time.timeScale = 0f; // Tạm dừng game khi thắng
     }
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.FadeOutBGM(1.5f);
         await UniTask.Delay(1500); // Đợi 0.5s để đảm bảo mọi thứ đã ổn định trước khi hiển thị panel
         ShowPanel(losePanel);
+        winPanel?.gameObject.SetActive(false); // Ẩn panel thắng nếu đang hiển thị
         await UniTask.Delay((int)(animationDuration * 1000)); // Đợi animation hoàn thành trước khi phát âm thanh
         Time.timeScale = 0f; // Tạm dừng game khi thua
     }
@@ -118,7 +120,7 @@ public class GameManager : MonoBehaviour
     public void Home()
     {
         Time.timeScale = 1f; // Đảm bảo game không bị tạm dừng
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1); // Giả sử scene 0 là menu chính
+        UnityEngine.SceneManagement.SceneManager.LoadScene(2); // Giả sử scene 0 là menu chính
     }
 
     public void Continue()

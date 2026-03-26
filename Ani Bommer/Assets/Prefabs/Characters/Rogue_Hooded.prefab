@@ -978,6 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb5d92cfb0d8c744a58b503f390b72c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameDatabase: {fileID: 11400000, guid: 91770014d038a024faaf78e602fd60a2, type: 2}
   bombPrefab: {fileID: 7070355093421784678, guid: 64bc536e5290fe04e89e25129da4b26b,
     type: 3}
   characterData: {fileID: 11400000, guid: 5eef9257162d5cf478965fd69b32ff68, type: 2}
@@ -999,6 +1000,8 @@ MonoBehaviour:
   _healingClip: {fileID: 8300000, guid: 324aa5266e0cf7c42915308ad12972ed, type: 3}
   _shieldClip: {fileID: 8300000, guid: 0c57a37dc352c534a8c8159173925677, type: 3}
   _speedClip: {fileID: 8300000, guid: 0133d603f87ec5040b8d0c7b98ede0cf, type: 3}
+  _slashClip: {fileID: 8300000, guid: 3cc0b836550871b40b578e0346da7969, type: 3}
+  _putBombClip: {fileID: 8300000, guid: d674f6f45536b7d4ab911cc2dc4845f4, type: 3}
   _hitEffect: {fileID: 1304252172711592100}
   _poisonedEffect: {fileID: 2553753738162846683, guid: ee38314b24188f144af552d9bceb7a40,
     type: 3}
@@ -1036,6 +1039,9 @@ MonoBehaviour:
   MoveSpeed: 0
   BombRange: 0
   MaxBomb: 0
+  damageNumberPrefab: {fileID: 8730579743785089685, guid: 410396305a3d6b44fa81ceb4b2491ad9,
+    type: 3}
+  damagePopupOffset: {x: 0, y: 4, z: 0}
 --- !u!143 &1558638680913320479
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1058,9 +1064,9 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 0
-  m_StepOffset: 0
+  m_StepOffset: 0.1
   m_SkinWidth: 0.02
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!198 &1304252172711592100
 ParticleSystem:

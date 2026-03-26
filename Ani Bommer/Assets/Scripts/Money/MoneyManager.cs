@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,12 +20,34 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // Đồng bộ tiền từ save
+        if (DataManager.Instance != null && DataManager.Instance.PlayerData != null)
+        {
+            CurrentMoney = DataManager.Instance.PlayerData.gold;
+            HUDManager.instance?.UpdateMoneyText(CurrentMoney);
+        }
+    }
+
     public void IncreaseMoney(int amount)
     {
-        DataManager.Instance.PlayerData.gold += amount;
-        DataManager.Instance.SavePlayerData();
+        if (amount <= 0) return;
         CurrentMoney += amount;
-        HUDManager.instance.UpdateMoneyText(CurrentMoney);
+        DataManager.Instance.PlayerData.gold = CurrentMoney;
+        DataManager.Instance.SavePlayerData();
+        HUDManager.instance?.UpdateMoneyText(CurrentMoney);
+    }
 
+    public bool TrySpendMoney(int amount)
+    {
+        if (amount <= 0) return true;
+        if (CurrentMoney < amount) return false;
+
+        CurrentMoney -= amount;
+        DataManager.Instance.PlayerData.gold = CurrentMoney;
+        DataManager.Instance.SavePlayerData();
+        HUDManager.instance?.UpdateMoneyText(CurrentMoney);
+        return true;
     }
 }

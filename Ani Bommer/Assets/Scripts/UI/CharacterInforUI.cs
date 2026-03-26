@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -14,11 +14,17 @@ public class CharacterInforUI : MonoBehaviour
     public TMP_Text rangeText;
     public TMP_Text maxBombText;
 
+    [Header("Shop UI")]
+    public TMP_Text priceText;
+
     public Button selectButton;
     public TMP_Text selectButtonText;
+
     
     private string _characterId;
     private System.Action<string> _onSelect;
+
+    private System.Action<string> _onBuy;
 
 
     public void Setup(CharacterConfig config, bool isEquipped, System.Action<string> onSelect)
@@ -57,5 +63,52 @@ public class CharacterInforUI : MonoBehaviour
     private void OnClickSelect()
     {
         _onSelect?.Invoke(_characterId);
+    }
+
+
+    public void SetupShop(CharacterConfig config, bool isOwned, System.Action<string> onBuy)
+    {
+        if (config == null) return;
+
+        _characterId = config.id;
+        _onBuy = onBuy;
+        _onSelect = null;
+
+        avatarImage.sprite = config.sprite;
+        nameText.text = config.displayName;
+
+        if (config.stats != null)
+        {
+            hpText.text = config.stats.playerHealth.ToString();
+            speedText.text = config.stats.moveSpeed.ToString();
+            rangeText.text = config.stats.bombRange.ToString();
+            maxBombText.text = config.stats.maxBombs.ToString();
+        }
+
+        // Hiện giá
+        if (priceText != null)
+        {
+            priceText.gameObject.SetActive(true);
+            priceText.text = config.priceGold.ToString(); 
+        }
+
+        if (isOwned)
+        {
+            selectButton.interactable = false;
+            selectButtonText.text = "OWNED";
+        }
+        else
+        {
+            selectButton.interactable = true;
+            selectButtonText.text = $"${config.priceGold}";
+        }
+
+        selectButton.onClick.RemoveAllListeners();
+        selectButton.onClick.AddListener(OnClickBuy);
+    }
+
+    private void OnClickBuy()
+    {
+        _onBuy?.Invoke(_characterId);
     }
 }

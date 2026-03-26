@@ -2,6 +2,7 @@
 using DG.Tweening; // Thư viện DOTween
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -88,7 +89,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenPrepare() => OpenPanelEffect(preparePanel);
     public void OpenTask() => OpenPanelEffect(taskPanel);
-    public void OpenShop() => OpenPanelEffect(shopPanel);
+    public void OpenShop() => SceneManager.LoadScene("Shop"); // Mở scene shop thay vì panel
     public void OpenAdventure() => OpenPanelEffect(adventurePanel);
     public void OpenPVP() => OpenPanelEffect(pvpPanel);
 

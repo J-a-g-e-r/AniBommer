@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MonsterChaseMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 1f;
+    [SerializeField] public float speed = 1f;
     [SerializeField] private float rotateSpeed = 5f;
     private Transform player;
     private Rigidbody rb;
+
+ 
 
     private void Awake()
     {
@@ -32,6 +35,7 @@ public class MonsterChaseMovement : MonoBehaviour
     private void Update()
     {
         // Nếu mất target, thử tìm lại
+
         if (player == null)
         {
             SetTarget();
@@ -61,4 +65,6 @@ public class MonsterChaseMovement : MonoBehaviour
     {
         player = FindAnyObjectByType<PlayerController>()?.transform;
     }
+
+
 }

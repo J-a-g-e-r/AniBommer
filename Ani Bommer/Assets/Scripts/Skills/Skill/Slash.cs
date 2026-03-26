@@ -20,7 +20,7 @@ public class Slash : Skill
         if (mono != null)
         {
             mono.StartCoroutine(SlashTrail(owner));
-            //userEffects?.PlayShieldSound();
+            userEffects?.PlaySlashSound();
         }
     }
 

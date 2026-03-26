@@ -163,6 +163,7 @@ MonoBehaviour:
   - collectablePrefab: {fileID: 9157661162459348552, guid: 545e74a365d1cae4d9502f07efb2af18,
       type: 3}
     spawnChance: 20
+  breakSound: {fileID: 8300000, guid: e59b40e817a665d4c8a32c6be914ab48, type: 3}
 --- !u!65 &4260624537205461492
 BoxCollider:
   m_ObjectHideFlags: 0

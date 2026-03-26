@@ -11,19 +11,26 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private PlayerStats playerStats;
     private BombExplode bombExplode;
+    private PlayerEffects playerEffects;
 
+    [Header("Data Source")]
+    [SerializeField] private GameDatabase gameDatabase;
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Characters characterData;
+
 
 
     private void Awake()
     {
         playerInput = new Player();
+        Application.targetFrameRate = 150;
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
         playerSkills = GetComponent<PlayerSkills>();
+        playerEffects = GetComponent<PlayerEffects>();
         bombExplode = bombPrefab.GetComponent<BombExplode>();
+        GetEquippedBombPrefab();
     }
     private void Start()
     {
@@ -53,6 +60,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector2 movementInput = playerInput.PlayerController.Move.ReadValue<Vector2>();
+        //Debug.Log(playerInput.PlayerController.Move.ReadValue<Vector2>());
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
         controller.Move(move * Time.deltaTime * playerStats.MoveSpeed);
 
@@ -69,7 +77,7 @@ public class PlayerController : MonoBehaviour
         // MPlace bomb
         if (playerInput.PlayerController.PlaceBomb.triggered)
         {
-                PlaceBomb();
+            PlaceBomb();
         }
 
 
@@ -116,6 +124,7 @@ public class PlayerController : MonoBehaviour
         bombObj.GetComponent<BombExplode>().Init(playerStats.BombRange);
         bombObj.GetComponent<BombExplode>().InitPos(grid);
         GridMapSpawner.Instance.PlaceBomb(grid);
+        playerEffects.PlayPutBombSound();
         GameEvents.OnBombPlaced?.Invoke();
 
     }
@@ -133,5 +142,35 @@ public class PlayerController : MonoBehaviour
     public void TriggerThrowAnimation()
     {
         animator.SetTrigger("IsThrowing");
+    }
+
+    private void GetEquippedBombPrefab()
+    {
+        // Nếu thiếu data thì giữ nguyên bombPrefab fallback trong Inspector
+        if (gameDatabase == null || DataManager.Instance == null || DataManager.Instance.PlayerData == null)
+        {
+            return;
+        }
+
+        string equippedBombId = DataManager.Instance.PlayerData.equippedBombId;
+        if (string.IsNullOrEmpty(equippedBombId))
+        {
+            return;
+        }
+
+        BombConfig bombConfig = gameDatabase.GetBomb(equippedBombId);
+        if (bombConfig == null)
+        {
+            Debug.LogWarning($"PlayerController: cannot find BombConfig with id '{equippedBombId}'.");
+            return;
+        }
+
+        if (bombConfig.prefab == null)
+        {
+            Debug.LogWarning($"PlayerController: BombConfig '{equippedBombId}' has null prefab.");
+            return;
+        }
+
+        bombPrefab = bombConfig.prefab;
     }
 }

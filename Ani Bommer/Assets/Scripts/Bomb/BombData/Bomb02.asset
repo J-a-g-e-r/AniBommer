@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Bomb02
   m_EditorClassIdentifier: 
   id: B02
-  displayName: Bom 2
+  displayName: "Bom ch\u1EBFt ch\xF3c"
+  description: "Bom \u0111\u01B0\u1EE3c pha ch\u1EBF t\u1EEB c\xE1c lo\u1EA1i \u0111\u1ED9c
+    d\u01B0\u1EE3c n\xEAn chuy\u1EC3n sang m\xE0u \u0111\u1ECF s\u1EABm"
+  sprite: {fileID: 21300000, guid: 105b03296b17f3f45a190bc6636b13da, type: 3}
   prefab: {fileID: 7254411682492657908, guid: 6c0728dcb8423194cb8778020c07b515, type: 3}

@@ -1536,6 +1536,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 1
   collectableDrops: []
+  damageNumberPrefab: {fileID: 8730579743785089685, guid: 410396305a3d6b44fa81ceb4b2491ad9,
+    type: 3}
+  damagePopupOffset: {x: 0.5, y: 4, z: 0}
 --- !u!114 &8006016934557723284
 MonoBehaviour:
   m_ObjectHideFlags: 0

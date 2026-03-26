@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 7f86f31e11cd43f49b4d66fdfbc7064f
+  - enabled: 1
+    path: Assets/Scenes/InputDataScene.unity
+    guid: cf051f36b05e6704bba9138795de8ed4
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: b7b4c8af2778f7a44846d8f4f2fcad2b
@@ -18,9 +21,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Christmas/Level2.unity
     guid: e864924318966464289f12cb1564c049
   - enabled: 1
-    path: Assets/Scenes/InputDataScene.unity
-    guid: cf051f36b05e6704bba9138795de8ed4
-  - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
-    guid: 7f86f31e11cd43f49b4d66fdfbc7064f
-  m_configObjects: {}
+    path: Assets/Scenes/Shop.unity
+    guid: a1546ec8cc9bf244d9c4d8fe7383de7c
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 5b881d0e574374e49a98e2d1d3df1fdf,
+      type: 3}

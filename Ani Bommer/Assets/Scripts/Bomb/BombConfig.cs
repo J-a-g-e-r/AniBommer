@@ -7,5 +7,10 @@ public class BombConfig : ScriptableObject
 {
     public string id;            
     public string displayName;
-    public GameObject prefab;    
+    public string description;
+    public Sprite sprite;
+    public GameObject prefab;
+
+    [Header("Shop")]
+    public int priceGold = 100;
 }

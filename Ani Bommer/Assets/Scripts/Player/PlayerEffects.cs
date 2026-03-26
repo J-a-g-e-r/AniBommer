@@ -11,6 +11,8 @@ public class PlayerEffects : MonoBehaviour
     [SerializeField] private AudioClip _healingClip;
     [SerializeField] private AudioClip _shieldClip;
     [SerializeField] private AudioClip _speedClip;
+    [SerializeField] private AudioClip _slashClip;
+    [SerializeField] private AudioClip _putBombClip;
 
     [Header("Particle Effects")]
     [SerializeField] private ParticleSystem _hitEffect;
@@ -28,7 +30,10 @@ public class PlayerEffects : MonoBehaviour
         AudioManager.Instance.PlaySound(clip);
     }
 
-
+    public void PlayPutBombSound()
+    {
+        AudioManager.Instance.PlaySound(_putBombClip);
+    }
 
     #endregion
 
@@ -74,6 +79,11 @@ public class PlayerEffects : MonoBehaviour
     public void PlayShieldSound()
     {
         AudioManager.Instance.PlaySound(_shieldClip);
+    }
+
+    public void PlaySlashSound()
+    {
+        AudioManager.Instance.PlaySound(_slashClip);
     }
 
     public void PlayBoostSpeedSound()

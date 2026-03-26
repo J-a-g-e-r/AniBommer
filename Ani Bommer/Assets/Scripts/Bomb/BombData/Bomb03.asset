@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Bomb03
   m_EditorClassIdentifier: 
   id: B03
-  displayName: Bom 3
+  displayName: "Bom gi\xE1ng sinh"
+  description: "Bom \u0111\u01B0\u1EE3c trang tr\xED theo ch\u1EE7 \u0111\u1EC1 gi\xE1ng
+    sinh"
+  sprite: {fileID: 21300000, guid: ddd9b6e89acaa1d498dfc7830fec602e, type: 3}
   prefab: {fileID: 6001328017690258604, guid: e0751bf91e4767e4894c41d003bb07aa, type: 3}

@@ -1,3 +1,4 @@
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,9 +21,22 @@ public class MonsterWaveSpawner : MonoBehaviour
     [Header("WaveUI")]
     [SerializeField] private TextMeshProUGUI waveUIText;
 
+    [Header("Notification UI")]
+    [SerializeField] private GameObject notification;
+    [SerializeField] private float notificationFadeInDuration = 0.25f;
+    [SerializeField] private float notificationVisibleDuration = 0.6f;
+    [SerializeField] private float notificationFadeOutDuration = 0.25f;
+    [SerializeField] private float startScale = 0.5f; // Kích thước ban đầu lúc ẩn
+    [SerializeField] private Ease showEase = Ease.OutBack; // Hiệu ứng lúc hiện (OutBack tạo cảm giác nẩy nhẹ)
+    [SerializeField] private Ease hideEase = Ease.InBack;
+
 
     private void Start()
     {
+        if (notification != null)
+        {
+            notification.gameObject.SetActive(false);
+        }
         if (Waves == null || Waves.Count == 0)
         {
             Debug.LogWarning("MonsterWaveSpawner: No waves configured!");
@@ -39,21 +53,22 @@ public class MonsterWaveSpawner : MonoBehaviour
     private void StartNextWave()
     {
         currentWaveIndex++;
-        if (Waves == null || currentWaveIndex >= Waves.Count)
+        if (Waves == null && aliveMonsters ==0 || currentWaveIndex >= Waves.Count && aliveMonsters == 0)
         {
             Debug.Log("All waves completed!");
             GameManager.Instance?.OnGameWin();
             return;
         }
 
-        MonsterWave wave = Waves[currentWaveIndex];
-        Debug.Log($"Starting Wave {currentWaveIndex + 1}");
-        WaveUITextUpdate(currentWaveIndex + 1);
-        SpawnWave(wave);
-        if (wave.WaveDuration > 0f)
-        {
-            waveTimerCoroutine = StartCoroutine(WaveTimer(wave.WaveDuration));
-        }
+        //MonsterWave wave = Waves[currentWaveIndex];
+        //Debug.Log($"Starting Wave {currentWaveIndex + 1}");
+        //WaveUITextUpdate(currentWaveIndex + 1);
+        //SpawnWave(wave);
+        //if (wave.WaveDuration > 0f)
+        //{
+        //    waveTimerCoroutine = StartCoroutine(WaveTimer(wave.WaveDuration));
+        //}
+        StartCoroutine(ShowNotificationAndSpawn());
     }
 
 
@@ -70,6 +85,52 @@ public class MonsterWaveSpawner : MonoBehaviour
             {
                 StartCoroutine(SpawnMonsterGroup(group));
             }
+        }
+    }
+
+    private IEnumerator ShowNotificationAndSpawn()
+    {
+        if (notification != null && currentWaveIndex < Waves.Count)
+        {
+            // --- THIẾT LẬP BAN ĐẦU ---
+            CanvasGroup canvasGroup = notification.GetComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = notification.AddComponent<CanvasGroup>();
+
+            // Đảm bảo ẩn hoàn toàn về Alpha và nhỏ lại về Scale
+            canvasGroup.alpha = 0f;
+            notification.transform.localScale = Vector3.one * startScale;
+            notification.SetActive(true);
+
+            // --- 1. HIỆU ỨNG XUẤT HIỆN (FADE IN + SCALE UP) ---
+            // Chạy song song cả 2 hiệu ứng
+            canvasGroup.DOFade(1f, notificationFadeInDuration);
+            notification.transform.DOScale(1f, notificationFadeInDuration).SetEase(showEase);
+
+            // Chờ hiệu ứng hiện xong + thời gian hiển thị
+            yield return new WaitForSeconds(notificationFadeInDuration + notificationVisibleDuration);
+
+            // --- 2. HIỆU ỨNG BIẾN MẤT (FADE OUT + SCALE DOWN) ---
+            // Chạy song song cả 2 hiệu ứng
+            canvasGroup.DOFade(0f, notificationFadeOutDuration);
+            notification.transform.DOScale(startScale, notificationFadeOutDuration).SetEase(hideEase);
+
+            // Chờ hiệu ứng ẩn xong
+            yield return new WaitForSeconds(notificationFadeOutDuration);
+
+            notification.SetActive(false);
+        }
+
+        // 3. Chờ thêm 1-2 giây ngẫu nhiên trước khi spawn như bạn yêu cầu
+        yield return new WaitForSeconds(1f);
+
+        // 4. Bắt đầu Spawn quái
+        MonsterWave wave = Waves[currentWaveIndex];
+        WaveUITextUpdate(currentWaveIndex + 1);
+        SpawnWave(wave);
+
+        if (wave.WaveDuration > 0f)
+        {
+            waveTimerCoroutine = StartCoroutine(WaveTimer(wave.WaveDuration));
         }
     }
 

@@ -1239,8 +1239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f602424809c59e4b8300122b5004f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
+  maxHP: 100
   collectableDrops: []
+  damageNumberPrefab: {fileID: 8730579743785089685, guid: 410396305a3d6b44fa81ceb4b2491ad9,
+    type: 3}
+  damagePopupOffset: {x: 0.5, y: 4, z: 0}
 --- !u!114 &3493743294404213475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1279,7 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c4c782a09676e4680454e27ccef267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 10
   cooldown: 0.5
   monsterType: 1
 --- !u!54 &5565113803968255665

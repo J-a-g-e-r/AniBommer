@@ -38,4 +38,12 @@ public class MonsterController : MonoBehaviour
             animator.SetTrigger("IsDamaged");
         }
     }
+
+    public void CheckSpeed(float speed)
+    {
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", speed);
+        }
+    }
 }

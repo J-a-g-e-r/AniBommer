@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rogue
   m_EditorClassIdentifier: 
   playerHealth: 900
-  moveSpeed: 12
+  moveSpeed: 10
   bombRange: 2
   maxBombs: 3
   startingSkill: 2
