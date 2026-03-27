@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class BombExplode : MonoBehaviour
 {
@@ -14,11 +16,31 @@ public class BombExplode : MonoBehaviour
 
     private bool isExploded = false;
     private Vector2Int grid;
-    void Start()
+
+    private SpriteRenderer spriteRenderer;
+    public GameObject ExplosionEffectPrefab => explosionEffect;
+
+    private void Awake()
     {
-        Invoke("Explode", bombCoundownTime);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    private void OnEnable()
+    {
+        isExploded = false;
+        GetComponent<Collider>().isTrigger = true;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = true;
+        }
+        CancelInvoke(nameof(Explode));
+        Invoke(nameof(Explode), bombCoundownTime);
     }
 
+    private void OnDisable()
+    {
+        CancelInvoke(nameof(Explode));
+        StopAllCoroutines();
+    }
     public void Init(int range)
     {
         explosionRange = range;
@@ -29,9 +51,10 @@ public class BombExplode : MonoBehaviour
         grid = gridPos;
     }
 
-    private void Explode()
+    private async UniTask Explode()
     {
-        Instantiate(explosionEffect, transform.position + new Vector3(0, 0.5f, 0), explosionEffect.transform.rotation); //1
+        SpawnExplosion(transform.position + new Vector3(0, 0.5f, 0));
+        //Instantiate(explosionEffect, transform.position + new Vector3(0, 0.5f, 0), explosionEffect.transform.rotation); //1
         AudioManager.Instance.PlaySound(explosionSound);
 
         StartCoroutine(CreateExplosions(Vector3.forward));
@@ -39,11 +62,46 @@ public class BombExplode : MonoBehaviour
         StartCoroutine(CreateExplosions(Vector3.back));
         StartCoroutine(CreateExplosions(Vector3.left));
 
-        GetComponent<SpriteRenderer>().enabled = false; //2
+        if(spriteRenderer != null) spriteRenderer.enabled = false; //2
         isExploded = true;
         GridMapSpawner.Instance.RemoveBomb(grid);
         GameEvents.OnBombExploded?.Invoke();
-        Destroy(gameObject, .3f);
+
+        // desspawn sau 0/3f
+        await UniTask.Delay(300);
+        ObjectPoolingManager.Instance.Despawn(gameObject);
+        //Destroy(gameObject, .3f);
+    }
+
+    private void SpawnExplosion(Vector3 pos)
+    {
+        if (explosionEffect == null) return;
+
+        var vfx = ObjectPoolingManager.Instance.Spawn(
+            explosionEffect,
+            pos,
+            explosionEffect.transform.rotation
+        );
+
+        // Tự trả VFX về pool sau thời gian particle chạy xong (nếu có ParticleSystem)
+        var ps = vfx != null ? vfx.GetComponentInChildren<ParticleSystem>() : null;
+        float despawnDelay = 0.8f;
+
+        if (ps != null)
+        {
+            var main = ps.main;
+            // cố gắng lấy thời gian chạy thực tế
+            despawnDelay = main.duration + main.startLifetime.constantMax + 0.05f;
+            ps.Play(true);
+        }
+
+        StartCoroutine(DespawnAfterDelay(vfx, despawnDelay));
+    }
+
+    private IEnumerator DespawnAfterDelay(GameObject go, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ObjectPoolingManager.Instance.Despawn(go);
     }
 
     private IEnumerator CreateExplosions(Vector3 direction)
@@ -69,7 +127,8 @@ public class BombExplode : MonoBehaviour
                 Vector3 hitPos = hit.point;
                 hitPos.y = transform.position.y + 0.5f;
 
-                Instantiate(explosionEffect, hitPos, explosionEffect.transform.rotation);
+                SpawnExplosion(hitPos);
+                //Instantiate(explosionEffect, hitPos, explosionEffect.transform.rotation);
 
                 // ❌ Gặp block → dừng lan nổ
                 break;
@@ -80,7 +139,8 @@ public class BombExplode : MonoBehaviour
                 Vector3 spawnPos = transform.position + direction * distance;
                 spawnPos.y = transform.position.y + 0.5f;
 
-                Instantiate(explosionEffect, spawnPos, explosionEffect.transform.rotation);
+                SpawnExplosion(spawnPos);
+                //Instantiate(explosionEffect, spawnPos, explosionEffect.transform.rotation);
             }
 
             yield return new WaitForSeconds(0.02f);
@@ -91,8 +151,8 @@ public class BombExplode : MonoBehaviour
     {
         if (!isExploded && other.CompareTag("Explosion"))
         {
-            CancelInvoke("Explode");
-            Explode();
+            CancelInvoke(nameof(Explode));
+            Explode().Forget();
         }
     }
 }

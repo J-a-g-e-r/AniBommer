@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class Monster : MonoBehaviour,IHealth
@@ -40,10 +41,13 @@ public class Monster : MonoBehaviour,IHealth
     }
     private void SpawnDamageNumber(int amount)
     {
-        if (damageNumberPrefab == null || amount <= 0) return;
+        //if (damageNumberPrefab == null || amount <= 0) return;
 
         Vector3 pos = transform.position + damagePopupOffset;
-        var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity * Quaternion.Euler(65,0,0));
+
+        var popupGo = ObjectPoolingManager.Instance.Spawn(damageNumberPrefab.gameObject,pos,Quaternion.identity * Quaternion.Euler(65, 0, 0));
+        var popup = popupGo.GetComponent<DamageNumberPopup>();
+        //var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity * Quaternion.Euler(65,0,0));
         popup.InitDamage(amount);
     }
 

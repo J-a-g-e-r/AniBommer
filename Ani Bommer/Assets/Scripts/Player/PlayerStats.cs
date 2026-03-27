@@ -122,7 +122,9 @@ public class PlayerStats : MonoBehaviour, IHealth
         if (damageNumberPrefab == null || amount <= 0) return;
 
         Vector3 pos = transform.position + damagePopupOffset;
-        var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity);
+        var popupGo = ObjectPoolingManager.Instance.Spawn(damageNumberPrefab.gameObject, pos, Quaternion.identity);
+        var popup = popupGo.GetComponent<DamageNumberPopup>();
+        //var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity);
         popup.InitDamage(amount);
     }
     public void TakeDamage(int damage)
@@ -175,7 +177,9 @@ public class PlayerStats : MonoBehaviour, IHealth
             if (damageNumberPrefab != null)
             {
                 Vector3 pos = transform.position + damagePopupOffset;
-                var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity);
+                var popupGo = ObjectPoolingManager.Instance.Spawn(damageNumberPrefab.gameObject, pos, Quaternion.identity);
+                var popup = popupGo.GetComponent<DamageNumberPopup>();
+                //var popup = Instantiate(damageNumberPrefab, pos, Quaternion.identity);
                 popup.InitHeal(healed);
             }
         }

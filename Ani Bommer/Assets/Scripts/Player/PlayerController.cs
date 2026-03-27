@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,7 +19,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Characters characterData;
 
-
+    [Header("Pool Data")]
+    [SerializeField] private int bombPoolSize = 10;
+    [SerializeField] private int explosionPoolSize = 50;
+    [SerializeField] private bool prewarmOnStart = true;
 
     private void Awake()
     {
@@ -120,9 +124,14 @@ public class PlayerController : MonoBehaviour
         }
         Vector3 worldPos = GridMapSpawner.Instance.GridToWorld(grid);
 
-        GameObject bombObj = Instantiate(bombPrefab, new Vector3(worldPos.x,1f,worldPos.z),bombPrefab.transform.rotation);
-        bombObj.GetComponent<BombExplode>().Init(playerStats.BombRange);
-        bombObj.GetComponent<BombExplode>().InitPos(grid);
+        GameObject bombObj = ObjectPoolingManager.Instance.Spawn(bombPrefab, new Vector3(worldPos.x, 1f, worldPos.z), bombPrefab.transform.rotation);
+        //GameObject bombObj = Instantiate(bombPrefab, new Vector3(worldPos.x,1f,worldPos.z),bombPrefab.transform.rotation);
+        var bomb = bombObj.GetComponent<BombExplode>();
+        bomb.Init(playerStats.BombRange);
+        bomb.InitPos(grid);
+        //bomb.StartCountdown();
+        //bombObj.GetComponent<BombExplode>().Init(playerStats.BombRange);
+        //bombObj.GetComponent<BombExplode>().InitPos(grid);
         GridMapSpawner.Instance.PlaceBomb(grid);
         playerEffects.PlayPutBombSound();
         GameEvents.OnBombPlaced?.Invoke();
@@ -172,5 +181,25 @@ public class PlayerController : MonoBehaviour
         }
 
         bombPrefab = bombConfig.prefab;
+        PrewarmEquippedBombAndExplosion(bombPrefab);
+    }
+
+    private void PrewarmEquippedBombAndExplosion(GameObject equippedBombPrefab)
+    {
+        if (!prewarmOnStart) return;
+        if (equippedBombPrefab == null) return;
+        if (ObjectPoolingManager.Instance == null) return;
+
+        // pool bomb đang equip
+        ObjectPoolingManager.Instance.Warm(equippedBombPrefab, bombPoolSize);
+
+        // lấy explosionEffect tương ứng từ BombExplode trên bomb prefab
+        var bombExplode = equippedBombPrefab.GetComponent<BombExplode>();
+        if (bombExplode == null) return;
+
+        var explosionPrefab = bombExplode.ExplosionEffectPrefab;
+        if (explosionPrefab == null) return;
+
+        ObjectPoolingManager.Instance.Warm(explosionPrefab, explosionPoolSize);
     }
 }

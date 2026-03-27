@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEditor.EditorTools;
 
 public class DamageNumberPopup : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class DamageNumberPopup : MonoBehaviour
 
         if (_tmpText == null)
         {
-            Destroy(gameObject);
+            ObjectPoolingManager.Instance.Despawn(gameObject);
             return;
         }
 
@@ -82,7 +83,7 @@ public class DamageNumberPopup : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject);
+        ObjectPoolingManager.Instance.Despawn(gameObject);
     }
 
     private void LateUpdate()

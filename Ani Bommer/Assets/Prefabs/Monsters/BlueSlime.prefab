@@ -1239,7 +1239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f602424809c59e4b8300122b5004f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 10
   collectableDrops: []
   damageNumberPrefab: {fileID: 8730579743785089685, guid: 410396305a3d6b44fa81ceb4b2491ad9,
     type: 3}
