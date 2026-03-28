@@ -85,7 +85,7 @@ public class BombExplode : MonoBehaviour
 
         // Tự trả VFX về pool sau thời gian particle chạy xong (nếu có ParticleSystem)
         var ps = vfx != null ? vfx.GetComponentInChildren<ParticleSystem>() : null;
-        float despawnDelay = 0.8f;
+        float despawnDelay = 0.1f;
 
         if (ps != null)
         {

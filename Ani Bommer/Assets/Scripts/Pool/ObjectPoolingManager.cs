@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectPoolingManager : MonoBehaviour
 {
@@ -29,11 +30,9 @@ public class ObjectPoolingManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
-        // prewarm theo cấu hình inspector (tuỳ chọn)
+        // Prewarm theo cấu hình inspector (nếu có)
         foreach (var p in prewarm)
         {
             if (p.prefab == null || p.count <= 0) continue;
@@ -67,20 +66,32 @@ public class ObjectPoolingManager : MonoBehaviour
 
         if (!_pools.TryGetValue(prefab, out var q) || q.Count == 0)
         {
-            // Lazy warm nếu bạn muốn (tránh “prewarm nhầm”)
             if (lazyWarmCount > 0 && !_warmed.Contains(prefab))
             {
                 Warm(prefab, lazyWarmCount, parent);
                 q = _pools[prefab];
             }
-
             if (q == null) q = new Queue<GameObject>();
-            else { _pools[prefab] = q; }
         }
 
-        GameObject go = (q != null && q.Count > 0) ? q.Dequeue() : CreateNew(prefab, parent);
+        GameObject go = null;
 
-        if (parent != null) go.transform.SetParent(parent, false);
+        // Bỏ qua các phần tử đã bị Destroy (scene unload) trong queue
+        while (q.Count > 0 && go == null)
+        {
+            var cand = q.Dequeue();
+            if (cand != null) go = cand;
+        }
+
+        if (go == null)
+        {
+            go = CreateNew(prefab, parent);
+        }
+        else if (parent != null)
+        {
+            go.transform.SetParent(parent, false);
+        }
+
         go.transform.SetPositionAndRotation(pos, rot);
         go.SetActive(true);
         return go;
@@ -92,7 +103,7 @@ public class ObjectPoolingManager : MonoBehaviour
 
         if (!_instanceToPrefab.TryGetValue(instance, out var prefab) || prefab == null)
         {
-            Destroy(instance); // fallback
+            Destroy(instance); // fallback nếu không thuộc pool
             return;
         }
 
@@ -111,7 +122,6 @@ public class ObjectPoolingManager : MonoBehaviour
     {
         var go = Instantiate(prefab, parent);
         _instanceToPrefab[go] = prefab;
-
         return go;
     }
 }
