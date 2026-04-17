@@ -4,8 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    public static LevelLoader Instance { get; private set; }
     // Hàm này sẽ dùng để gọi từ Button
     [SerializeField] Animator transitionAnim;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
+    }
 
     public void LoadScene(string sceneName)
     {

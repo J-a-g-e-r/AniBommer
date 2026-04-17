@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class ModelController : MonoBehaviour
 {
 
-    private Player playerInput;
+    private PlayerInputAction playerInput;
 
     private bool canSwipe = false;
 
@@ -16,7 +16,7 @@ public class ModelController : MonoBehaviour
     void Awake()
     {
         // 1. Khởi tạo đối tượng Input
-        playerInput = new @Player();
+        playerInput = new @PlayerInputAction();
     }
 
     void OnEnable()

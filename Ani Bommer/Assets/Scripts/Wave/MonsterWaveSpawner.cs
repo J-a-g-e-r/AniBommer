@@ -31,6 +31,16 @@ public class MonsterWaveSpawner : MonoBehaviour
     [SerializeField] private Ease hideEase = Ease.InBack;
 
 
+    private void OnEnable()
+    {
+        GameEvents.OnMapReady += HandleGameStart;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnMapReady -= HandleGameStart;
+    }
+
     private void Start()
     {
         if (notification != null)
@@ -47,6 +57,11 @@ public class MonsterWaveSpawner : MonoBehaviour
             Debug.LogError("MonsterWaveSpawner: Grid reference is missing!");
             return;
         }
+        //StartNextWave();
+    }
+
+    private void HandleGameStart()
+    {
         StartNextWave();
     }
 

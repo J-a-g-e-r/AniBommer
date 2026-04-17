@@ -11,6 +11,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource _sfxSource;
     [SerializeField] private AudioClip _loseSound;
     [SerializeField] private AudioClip _winSound;
+    [SerializeField] private AudioClip _star1Sound;
+    [SerializeField] private AudioClip _star2Sound;
+    [SerializeField] private AudioClip _star3Sound;
 
     [Header("BGM")]
     [SerializeField] private AudioSource _bgmSource;
@@ -163,5 +166,17 @@ public class AudioManager : MonoBehaviour
         float savedVolume = PlayerPrefs.GetFloat(PREF_BGM, 1f);
         SetBGMVolume01(savedVolume, save: false);
         _bgmSource.Play();
+    }
+
+    public void PlayStarSoundByIndex(int starIndex)
+    {
+        AudioClip clip = null;
+        switch (starIndex)
+        {
+            case 0: clip = _star1Sound; break; // sao thứ 1
+            case 1: clip = _star2Sound; break; // sao thứ 2
+            case 2: clip = _star3Sound; break; // sao thứ 3
+        }
+        if (clip != null) _sfxSource.PlayOneShot(clip);
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Player playerInput;
+    private PlayerInputAction playerInputAction;
     private CharacterController controller;
     private PlayerSkills playerSkills;
     private Animator animator;
@@ -26,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = new Player();
+        playerInputAction = new PlayerInputAction();
         Application.targetFrameRate = 150;
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -46,15 +45,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInput.Enable();
-        playerInput.PlayerController.Skill1.performed += _ => playerSkills.UseSkill(0);
-        playerInput.PlayerController.Skill2.performed += _ => playerSkills.UseSkill(1);
-        playerInput.PlayerController.Skill3.performed += _ => playerSkills.UseSkill(2);
+        playerInputAction.Enable();
+        playerInputAction.PlayerController.Skill1.performed += _ => playerSkills.UseSkill(0);
+        playerInputAction.PlayerController.Skill2.performed += _ => playerSkills.UseSkill(1);
+        playerInputAction.PlayerController.Skill3.performed += _ => playerSkills.UseSkill(2);
     }
 
     private void OnDisable()
     {
-        playerInput.Disable();
+        playerInputAction.Disable();
     }
 
 
@@ -63,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Vector2 movementInput = playerInput.PlayerController.Move.ReadValue<Vector2>();
+        Vector2 movementInput = playerInputAction.PlayerController.Move.ReadValue<Vector2>();
         //Debug.Log(playerInput.PlayerController.Move.ReadValue<Vector2>());
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
         controller.Move(move * Time.deltaTime * playerStats.MoveSpeed);
@@ -79,7 +78,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsRunning", isRunning);
 
         // MPlace bomb
-        if (playerInput.PlayerController.PlaceBomb.triggered)
+        if (playerInputAction.PlayerController.PlaceBomb.triggered)
         {
             PlaceBomb();
         }
@@ -104,9 +103,9 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Explosion"))
         {
             TriggerDeathAnimation();
-            
+
             playerStats.TakeDamage((int)playerStats.GetCurrentHealth());
-            Destroy(this.gameObject,0.3f);
+            Destroy(this.gameObject, 0.3f);
         }
     }
 

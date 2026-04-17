@@ -4,6 +4,13 @@ using System.Collections.Generic;
 [Serializable]
 public class PlayerData
 {
+    [Serializable]
+    public class LevelStarRecord
+    {
+        public string levelId;
+        public int stars;
+    }
+
     public string playerName;
     // Thông tin nhân vật
     public int characterLevel;
@@ -26,6 +33,7 @@ public class PlayerData
     // Tiến độ màn chơi
     public string currentLevelId;          // id/scene name màn đang chơi
     public List<string> unlockedLevels = new List<string>();  // các màn đã mở
+    public List<LevelStarRecord> levelStars = new List<LevelStarRecord>(); // số sao cao nhất theo màn
 
     // Khởi tạo mặc định cho người chơi mới
     public static PlayerData CreateDefault()
@@ -51,8 +59,8 @@ public class PlayerData
         data.equippedCharacterId = "Char_Default";
         data.equippedBombId = "Bomb_Default";
 
-        data.currentLevelId = "Level1";
-        data.unlockedLevels.Add("Level1");
+        data.currentLevelId = "GamePlay";
+        data.unlockedLevels.Add("GamePlay");
 
         data.bgmVolume = 1f;
         data.sfxVolume = 1f;

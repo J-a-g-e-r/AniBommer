@@ -6,4 +6,5 @@ public static class GameEvents
     public static Action OnBombExploded;
     public static Action OnSkillAdded;
     public static Action OnPlayerSpawned;
+    public static Action OnMapReady;
 }

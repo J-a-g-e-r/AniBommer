@@ -24,9 +24,21 @@ public class BoostSpeed : Skill
 
     private IEnumerator Boost(GameObject owner)
     {
+        // Thử lấy stats network trước, nếu không có thì dùng offline
+        var statsNetwork = owner.GetComponent<PlayerStatsNetwork>();
         var stats = owner.GetComponent<PlayerStats>();
-        stats.MoveSpeed += 10f;
-        yield return new WaitForSeconds(5f);
-        stats.MoveSpeed -= 10f;
+
+        if (statsNetwork != null)
+        {
+            statsNetwork.MoveSpeed += 10f;
+            yield return new WaitForSeconds(5f);
+            statsNetwork.MoveSpeed -= 10f;
+        }
+        else if (stats != null)
+        {
+            stats.MoveSpeed += 10f;
+            yield return new WaitForSeconds(5f);
+            stats.MoveSpeed -= 10f;
+        }
     }
 }

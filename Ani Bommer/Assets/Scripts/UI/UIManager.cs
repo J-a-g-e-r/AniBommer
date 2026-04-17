@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float duration = 0.5f; // Thời gian trượt
-    [SerializeField] private float startPosX = 1000f; // Vị trí bắt đầu (bên phải màn hình)
     [SerializeField] private Ease easeType = Ease.OutBack; // Kiểu hiệu ứng trượt
 
 
@@ -60,7 +59,7 @@ public class UIManager : MonoBehaviour
     private void InitPanel(RectTransform panel)
     {
         panel.gameObject.SetActive(false);
-        panel.anchoredPosition = new Vector2(startPosX, 0); // Đưa ra ngoài màn hình bên phải
+        panel.anchoredPosition = new Vector2(1350f, -60f); // Đưa ra ngoài màn hình bên phải
     }
 
     public void CloseAllPanels()
@@ -81,17 +80,17 @@ public class UIManager : MonoBehaviour
 
         panel.gameObject.SetActive(true);
         // Đặt lại vị trí panel ở bên phải trước khi chạy tween
-        panel.anchoredPosition = new Vector2(startPosX, 0);
+        panel.anchoredPosition = new Vector2(1350f, -60f);
 
         // Thực hiện hiệu ứng trượt về vị trí (0,0)
-        panel.DOAnchorPos(new Vector2(-660f,0), duration).SetEase(easeType);
+        panel.DOAnchorPos(new Vector2(-100f, -60f), duration).SetEase(easeType);
     }
 
     public void OpenPrepare() => OpenPanelEffect(preparePanel);
     public void OpenTask() => OpenPanelEffect(taskPanel);
     public void OpenShop() => SceneManager.LoadScene("Shop"); // Mở scene shop thay vì panel
     public void OpenAdventure() => OpenPanelEffect(adventurePanel);
-    public void OpenPVP() => OpenPanelEffect(pvpPanel);
+    public void OpenPVP() => SceneManager.LoadScene("PVPScene"); // Mở scene PVP thay vì panel
 
     private void IsOpenPanel()
     {

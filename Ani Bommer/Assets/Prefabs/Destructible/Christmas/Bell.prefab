@@ -114,6 +114,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7949437638490982721}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3983c39d848ea734d9c44482114ee0e5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7276998510716110409}
   m_SourcePrefab: {fileID: 100100000, guid: 3983c39d848ea734d9c44482114ee0e5, type: 3}
 --- !u!1 &1778674774270125731 stripped
 GameObject:
@@ -195,3 +199,19 @@ MonoBehaviour:
       type: 3}
     spawnChance: 20
   breakSound: {fileID: 8300000, guid: e59b40e817a665d4c8a32c6be914ab48, type: 3}
+--- !u!208 &-7276998510716110409
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778674774270125731}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.49812895, y: 0.75, z: 0.521142}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.03776771, y: 0, z: 0.0162299}
+  m_TimeToStationary: 0.5

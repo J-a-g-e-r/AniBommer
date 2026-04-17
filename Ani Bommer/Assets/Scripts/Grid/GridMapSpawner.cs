@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class GridMapSpawner : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class GridMapSpawner : MonoBehaviour
     private float offsetX;
     private float offsetZ;
 
+
+    [SerializeField] private NavMeshSurface navMeshSurface;
+
     private void Awake()
     {
         Instance = this;
@@ -37,7 +41,10 @@ public class GridMapSpawner : MonoBehaviour
     {
 
         SpawnMap();
+        if (!navMeshSurface) return;
 
+        navMeshSurface.BuildNavMesh();
+        GameEvents.OnMapReady?.Invoke();
     }
 
     void InitMapData()

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NameSceneUI : MonoBehaviour
 {
     [SerializeField] private TMP_InputField nameInput;
-    private string lobbyScene = "Lobby";
+    private string lobbyScene = "MainScene";
 
     public void OnClickStart()
     {

@@ -54,12 +54,62 @@ public static class MapLibrary
 
     };
 
+    private static readonly TileType[,] Map2Template = new TileType[19, 13]
+{
+            { E,E,E,D,E,E,E,E,E,D,E,E,E },
+            { E,D,E,D,E,E,E,E,E,D,E,D,E },
+            { E,E,E,D,E,I,I,I,E,D,E,E,E },
+            { D,D,D,D,E,I,D,I,E,D,D,D,D },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,D,E,E },
+            { E,E,E,E,E,E,I,E,E,D,D,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { P,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,I,E,E,E,D,E,E },
+            { E,E,E,E,E,E,E,E,E,D,D,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { D,D,D,D,E,I,D,I,E,D,D,D,D },
+            { E,E,E,D,E,E,E,E,E,D,E,E,E },
+            { E,E,E,D,E,E,E,E,E,D,E,E,E },
+            { E,E,E,D,E,I,I,I,E,D,E,E,E },
+
+};
+
+    private static readonly TileType[,] Map2TemplateMultiplayer = new TileType[19, 13]
+{
+            { D,D,D,D,E,I,I,I,E,E,E,E,E },
+            { D,D,D,D,E,E,E,E,E,E,E,E,E },
+            { D,D,D,D,E,E,E,E,E,E,E,E,E },
+            { D,P,D,D,E,E,E,E,E,E,E,P,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { E,E,E,E,E,E,E,E,E,E,E,E,E },
+            { D,P,D,D,E,E,E,E,E,D,D,P,D },
+            { E,E,E,D,E,E,E,E,E,D,E,E,E },
+            { E,E,E,D,E,E,E,E,E,D,E,E,E },
+            { E,E,E,D,E,I,I,I,E,D,E,E,E },
+
+};
+
     public static TileType[,] GetMap(int mapId)
     {
         return mapId switch
         {
             0 => Clone(Map0Template),
             1 => Clone(Map1Template),
+            2 => Clone(Map2TemplateMultiplayer),
+            3 => Clone(Map2Template),
             _ => Clone(Map0Template)
         };
     }

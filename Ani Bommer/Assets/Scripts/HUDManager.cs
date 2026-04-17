@@ -13,6 +13,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maxBombText;
     [SerializeField] private TextMeshProUGUI bombRangeText;
     [SerializeField] private TextMeshProUGUI speedText;
+    [SerializeField] private TextMeshProUGUI timerText;
 
 
     private void Awake()
@@ -67,4 +68,11 @@ public class HUDManager : MonoBehaviour
         UpdateSpeedText(speed);
     }
 
+    public void UpdateTimerText(int secondsRemaining)
+    {
+        secondsRemaining = Mathf.Max(0, secondsRemaining);
+        int m = secondsRemaining / 60;
+        int s = secondsRemaining % 60;
+        timerText.text = $"{m:00}:{s:00}";
+    }
 }

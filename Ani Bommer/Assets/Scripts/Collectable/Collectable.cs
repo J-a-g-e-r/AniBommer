@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(CollectableTriggerHandler))]
+//[RequireComponent(typeof(CollectableTriggerHandler))]
 public class Collectable : MonoBehaviour
 {
     [SerializeField] private CollectableSOBase _collectable;
