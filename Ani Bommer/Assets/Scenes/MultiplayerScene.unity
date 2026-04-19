@@ -4944,7 +4944,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320010992}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 759eebe7ad20e5c42b98b8e33298f666, type: 2}
   m_CullingMode: 0
@@ -15998,6 +15998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillListUI: {fileID: 753420521}
+  levelProgressTracker: {fileID: 0}
   winPanel: {fileID: 2090333237}
   losePanel: {fileID: 915691485}
   pausePanel: {fileID: 0}
@@ -16005,6 +16006,13 @@ MonoBehaviour:
   animationDuration: 0.5
   targetY: 0
   animationEase: 27
+  starFlyStartPoint: {fileID: 0}
+  emptyStarSlots: []
+  filledStarGroups: []
+  starFlyDuration: 0.35
+  starDelayBetween: 0.1
+  starPunchScale: 0.25
+  starEffect: {fileID: 0}
 --- !u!4 &934486353
 Transform:
   m_ObjectHideFlags: 0
@@ -18719,7 +18727,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074806764}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 759eebe7ad20e5c42b98b8e33298f666, type: 2}
   m_CullingMode: 0

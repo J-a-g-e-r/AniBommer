@@ -982,6 +982,9 @@ MonoBehaviour:
   bombPrefab: {fileID: 7070355093421784678, guid: 64bc536e5290fe04e89e25129da4b26b,
     type: 3}
   characterData: {fileID: 11400000, guid: 5eef9257162d5cf478965fd69b32ff68, type: 2}
+  bombPoolSize: 10
+  explosionPoolSize: 50
+  prewarmOnStart: 1
 --- !u!114 &6753394201821098222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1001,6 +1004,7 @@ MonoBehaviour:
   _shieldClip: {fileID: 8300000, guid: 0c57a37dc352c534a8c8159173925677, type: 3}
   _speedClip: {fileID: 8300000, guid: 0133d603f87ec5040b8d0c7b98ede0cf, type: 3}
   _slashClip: {fileID: 8300000, guid: 3cc0b836550871b40b578e0346da7969, type: 3}
+  _throwClip: {fileID: 8300000, guid: 8930a69285ff6584490e17da37244fb9, type: 3}
   _putBombClip: {fileID: 8300000, guid: d674f6f45536b7d4ab911cc2dc4845f4, type: 3}
   _hitEffect: {fileID: 1304252172711592100}
   _poisonedEffect: {fileID: 2553753738162846683, guid: ee38314b24188f144af552d9bceb7a40,

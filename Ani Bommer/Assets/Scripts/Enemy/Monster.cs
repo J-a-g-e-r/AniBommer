@@ -21,6 +21,8 @@ public class Monster : MonoBehaviour,IHealth
 
     private MonsterWaveSpawner waveSpawner;
 
+    private MonsterEffect monsterEffect;
+
 
 
     public void Init(MonsterWaveSpawner spawner)
@@ -33,6 +35,7 @@ public class Monster : MonoBehaviour,IHealth
 
         currentHP = maxHP;
         healthBar = GetComponentInChildren<HealthBar>();
+        monsterEffect = GetComponent<MonsterEffect>();
         if (healthBar != null)
         {
             healthBar.Init(maxHP);
@@ -68,8 +71,8 @@ public class Monster : MonoBehaviour,IHealth
         Debug.Log($"Monster took {damage} damage, current HP: {currentHP}/{maxHP}");
         healthBar?.UpdateHealth(currentHP);
         MonsterController monsterController = GetComponent<MonsterController>();
-
         monsterController?.TriggerDamagedAnimation();
+        monsterEffect?.PlayBloodEffect();
     }
 
     private void Die()
@@ -78,6 +81,7 @@ public class Monster : MonoBehaviour,IHealth
         MonsterController monsterController = GetComponent<MonsterController>();
         monsterController?.TriggerDeathAnimation();
         waveSpawner.OnEnemyDied();
+        monsterEffect?.PlayDeathEffect();
         Destroy(gameObject,0.3f);
         SpawnCollectables();
     }

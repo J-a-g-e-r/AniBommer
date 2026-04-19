@@ -28,6 +28,7 @@ public class MonsterController : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("IsDead");
+            animator.speed = 1.5f;
         }
     }
 

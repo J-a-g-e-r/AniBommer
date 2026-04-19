@@ -12,6 +12,7 @@ public class PlayerEffects : MonoBehaviour
     [SerializeField] private AudioClip _shieldClip;
     [SerializeField] private AudioClip _speedClip;
     [SerializeField] private AudioClip _slashClip;
+    [SerializeField] private AudioClip _throwClip;
     [SerializeField] private AudioClip _putBombClip;
 
     [Header("Particle Effects")]
@@ -91,5 +92,9 @@ public class PlayerEffects : MonoBehaviour
         AudioManager.Instance.PlaySound(_speedClip);
     }
 
+    public void PlayThrowClip()
+    {
+        AudioManager.Instance.PlaySound(_throwClip);
+    }
     #endregion
 }

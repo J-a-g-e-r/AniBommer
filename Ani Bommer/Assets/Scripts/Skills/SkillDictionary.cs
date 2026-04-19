@@ -5,4 +5,5 @@ public enum SkillDictionary
     Shield,
     Healing,
     Slash,
+    ThrowDagger,    
 }

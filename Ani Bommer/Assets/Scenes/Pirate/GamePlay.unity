@@ -8544,7 +8544,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551111451}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 759eebe7ad20e5c42b98b8e33298f666, type: 2}
   m_CullingMode: 0
@@ -25205,6 +25205,9 @@ MonoBehaviour:
     - MonsterPrefab: {fileID: 6301900574216842256, guid: 6cd8c93a380f01c43a6551f7a1d55b36,
         type: 3}
       Count: 3
+    - MonsterPrefab: {fileID: 8463894438391989729, guid: 936fd8d72d8c96c49a80959a968d26bb,
+        type: 3}
+      Count: 1
     WaveDuration: 60
   - MonsterGroups:
     - MonsterPrefab: {fileID: 4756716274027558564, guid: 7f4db6b9489f77240ba136e3d778a326,

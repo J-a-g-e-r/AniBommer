@@ -16,4 +16,4 @@ MonoBehaviour:
   moveSpeed: 10
   bombRange: 2
   maxBombs: 3
-  startingSkill: 2
+  startingSkill: 5

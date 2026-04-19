@@ -14,6 +14,8 @@ public static class SkillFactory
                 return new Healing();
             case SkillDictionary.Slash:
                 return new Slash();
+            case SkillDictionary.ThrowDagger:
+                return new ThrowDagger();
             default:
                 return null;
         }
