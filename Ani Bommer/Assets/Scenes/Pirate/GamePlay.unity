@@ -25393,9 +25393,6 @@ MonoBehaviour:
     - MonsterPrefab: {fileID: 6301900574216842256, guid: 6cd8c93a380f01c43a6551f7a1d55b36,
         type: 3}
       Count: 3
-    - MonsterPrefab: {fileID: 8463894438391989729, guid: 936fd8d72d8c96c49a80959a968d26bb,
-        type: 3}
-      Count: 1
     WaveDuration: 60
   - MonsterGroups:
     - MonsterPrefab: {fileID: 4756716274027558564, guid: 7f4db6b9489f77240ba136e3d778a326,
@@ -25413,6 +25410,7 @@ MonoBehaviour:
   showEase: 27
   hideEase: 26
   bossHealthUI: {fileID: 1786671205}
+  warningUI: {fileID: 0}
 --- !u!4 &1583674710
 Transform:
   m_ObjectHideFlags: 0

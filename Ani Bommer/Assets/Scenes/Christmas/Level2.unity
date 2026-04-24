@@ -7807,7 +7807,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 436064813}
   imageA: {fileID: 1296318067}
   imageB: {fileID: 572117332}
-  scrollSpeed: 300
+  scrollSpeed: 500
   fadeSpeed: 6
   minAlpha: 0.5
   maxAlpha: 1
@@ -10617,7 +10617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2106, y: 0}
+  m_AnchoredPosition: {x: 2137, y: 0}
   m_SizeDelta: {x: 2137, y: 775.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &572117333
@@ -10640,7 +10640,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6bf6d03fcd06b404085a8b133511ddcf, type: 3}
+  m_Sprite: {fileID: -374045960, guid: 6bf6d03fcd06b404085a8b133511ddcf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24993,7 +24993,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6bf6d03fcd06b404085a8b133511ddcf, type: 3}
+  m_Sprite: {fileID: -374045960, guid: 6bf6d03fcd06b404085a8b133511ddcf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
