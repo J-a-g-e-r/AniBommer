@@ -64,6 +64,13 @@ public class Monster : MonoBehaviour,IHealth
         if (deducted > 0)
             SpawnDamageNumber(deducted);
 
+        if (GetComponent<BossAttack>() != null)
+        {
+            BossHealthUI bossUI = FindObjectOfType<BossHealthUI>();
+            if (bossUI != null)
+                bossUI.UpdateBossHP(currentHP);
+        }
+
         if (currentHP <= 0)
         {
             Die();
@@ -82,6 +89,9 @@ public class Monster : MonoBehaviour,IHealth
         monsterController?.TriggerDeathAnimation();
         waveSpawner.OnEnemyDied();
         monsterEffect?.PlayDeathEffect();
+        MonsterChaseMovement chaseMovement = FinderHelper.GetComponentOnObject<MonsterChaseMovement>(gameObject);
+        if (chaseMovement != null)
+            chaseMovement.speed = 0;
         Destroy(gameObject,0.3f);
         SpawnCollectables();
     }
@@ -128,4 +138,6 @@ public class Monster : MonoBehaviour,IHealth
             }
         }
     }
+
+    public int GetMaxHP() => maxHP;
 }

@@ -30,6 +30,10 @@ public class MonsterWaveSpawner : MonoBehaviour
     [SerializeField] private Ease showEase = Ease.OutBack; // Hiệu ứng lúc hiện (OutBack tạo cảm giác nẩy nhẹ)
     [SerializeField] private Ease hideEase = Ease.InBack;
 
+    [Header("BossUI")]
+    [SerializeField] private BossHealthUI bossHealthUI;
+    [SerializeField] private WarningUI warningUI;
+
 
     private void OnEnable()
     {
@@ -139,14 +143,24 @@ public class MonsterWaveSpawner : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         // 4. Bắt đầu Spawn quái
+        if (Waves == null || currentWaveIndex < 0 || currentWaveIndex >= Waves.Count)
+            yield break;
         MonsterWave wave = Waves[currentWaveIndex];
         WaveUITextUpdate(currentWaveIndex + 1);
+        bool isBossWave = IsBossWave(wave);
+        if (isBossWave)
+        {
+            warningUI.PlayWarning(3f); // Hiển thị cảnh báo trong 3 giây
+            AudioManager.Instance.PlayWarningSound();
+        }
         SpawnWave(wave);
 
         if (wave.WaveDuration > 0f)
         {
             waveTimerCoroutine = StartCoroutine(WaveTimer(wave.WaveDuration));
         }
+
+
     }
 
     private IEnumerator SpawnMonsterGroup(MonsterGroup group)
@@ -178,6 +192,10 @@ public class MonsterWaveSpawner : MonoBehaviour
         aliveMonsters++;
 
         monster.GetComponent<Monster>()?.Init(this);
+        if (monster.GetComponent<BossAttack>() != null)
+        {
+            bossHealthUI.GetBossHP(monster);
+        }
     }
 
     public void OnEnemyDied()
@@ -206,5 +224,21 @@ public class MonsterWaveSpawner : MonoBehaviour
         {
             waveUIText.text = $"Wave: {waveNumber}/{Waves.Count}";
         }
+    }
+
+    private bool IsBossWave(MonsterWave wave)
+    {
+        if (wave == null || wave.MonsterGroups == null) return false;
+
+        foreach (var group in wave.MonsterGroups)
+        {
+            if (group == null || group.Count <= 0 || group.MonsterPrefab == null)
+                continue;
+
+            if (group.MonsterPrefab.GetComponent<BossAttack>() != null)
+                return true;
+        }
+
+        return false;
     }
 }

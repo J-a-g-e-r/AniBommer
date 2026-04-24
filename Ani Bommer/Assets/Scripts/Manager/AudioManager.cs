@@ -14,6 +14,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _star1Sound;
     [SerializeField] private AudioClip _star2Sound;
     [SerializeField] private AudioClip _star3Sound;
+    [SerializeField] private AudioClip _warningSound;
+    
 
     [Header("BGM")]
     [SerializeField] private AudioSource _bgmSource;
@@ -93,6 +95,8 @@ public class AudioManager : MonoBehaviour
     public void PlayLoseSound() => _sfxSource.PlayOneShot(_loseSound);
 
     public void PlayWinSound() => _sfxSource.PlayOneShot(_winSound);
+
+    public void PlayWarningSound() => _sfxSource.PlayOneShot(_warningSound);
 
     // ====== VOLUME API cho UI Slider (0..1) ======
 
@@ -179,4 +183,6 @@ public class AudioManager : MonoBehaviour
         }
         if (clip != null) _sfxSource.PlayOneShot(clip);
     }
+
+
 }
