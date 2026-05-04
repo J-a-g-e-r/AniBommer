@@ -22,9 +22,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerNameText;
     [SerializeField] private TextMeshProUGUI crownsText; // vương miện / kim cương
     [SerializeField] private TextMeshProUGUI goldText;
+    [SerializeField] private GameObject characterPos;
+
+    [Header("Change Name")]
+    [SerializeField] private GameObject changeNamePanel;
+    [SerializeField] private TMP_InputField changeNameInput;
 
 
     [SerializeField] private Animator slideBackground;
+    
 
     private void Awake()
     {
@@ -113,4 +119,38 @@ public class UIManager : MonoBehaviour
         // (Tùy chọn: tìm panel đang Active và dùng DOAnchorPos ra startPosX)
         CloseAllPanels();
     }
+
+
+    #region Change Name
+    public void OpenChangeNamePanel()
+    {
+        if (changeNamePanel != null)
+            changeNamePanel.SetActive(true);
+            characterPos.SetActive(false);
+        if (changeNameInput != null && DataManager.Instance != null && DataManager.Instance.PlayerData != null)
+        {
+            changeNameInput.text = DataManager.Instance.PlayerData.playerName;
+            changeNameInput.Select();
+            changeNameInput.ActivateInputField();
+        }
+    }
+    public void CloseChangeNamePanel()
+    {
+        if (changeNamePanel != null)
+            changeNamePanel.SetActive(false);
+            characterPos.SetActive(true);
+    }
+    public void SavePlayerName()
+    {
+        if (changeNameInput == null || DataManager.Instance == null) return;
+        string newName = changeNameInput.text.Trim();
+        if (string.IsNullOrEmpty(newName))
+            return;
+        bool success = DataManager.Instance.SetPlayerName(newName);
+        if (!success) return;
+        if (playerNameText != null)
+            playerNameText.text = newName;
+        CloseChangeNamePanel();
+    }
+    #endregion
 }

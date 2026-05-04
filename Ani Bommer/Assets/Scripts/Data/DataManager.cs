@@ -164,4 +164,14 @@ public class DataManager : MonoBehaviour
         PlayerData.crowns +=100;
         SavePlayerData();
     }
+
+    public bool SetPlayerName(string newName)
+    {
+        if (PlayerData == null) return false;
+        newName = newName.Trim();
+        if (string.IsNullOrEmpty(newName)) return false;
+        PlayerData.playerName = newName;
+        SavePlayerData();
+        return true;
+    }
 }

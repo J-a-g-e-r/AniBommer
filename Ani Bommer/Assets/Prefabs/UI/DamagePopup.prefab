@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.1098, y: 0}
+  m_SizeDelta: {x: 1.2196, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &191689207994341634
 MeshRenderer:
@@ -187,4 +187,5 @@ MonoBehaviour:
   floatDistance: 0.8
   duration: 0.6
   randomJitter: {x: 0.1, y: 0, z: 0.1}
-  textColor: {r: 1, g: 0.35, b: 0.35, a: 1}
+  damageColor: {r: 1, g: 0.25, b: 0.25, a: 1}
+  healColor: {r: 0.25, g: 1, b: 0.35, a: 1}
