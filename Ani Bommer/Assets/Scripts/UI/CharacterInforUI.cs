@@ -13,6 +13,7 @@ public class CharacterInforUI : MonoBehaviour
     public TMP_Text speedText;
     public TMP_Text rangeText;
     public TMP_Text maxBombText;
+    public TMP_Text description;
 
     [Header("Shop UI")]
     public TMP_Text priceText;
@@ -41,6 +42,7 @@ public class CharacterInforUI : MonoBehaviour
             speedText.text = config.stats.moveSpeed.ToString();
             rangeText.text = config.stats.bombRange.ToString();
             maxBombText.text = config.stats.maxBombs.ToString();
+            //description.text = config.description;
         }
 
         if (isEquipped)
@@ -83,6 +85,7 @@ public class CharacterInforUI : MonoBehaviour
             speedText.text = config.stats.moveSpeed.ToString();
             rangeText.text = config.stats.bombRange.ToString();
             maxBombText.text = config.stats.maxBombs.ToString();
+            description.text = config.description;
         }
 
         // Hiện giá

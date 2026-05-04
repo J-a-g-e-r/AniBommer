@@ -19,3 +19,6 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 59dbb2bef0bff06458e0c244d00d8b86, type: 2}
   prefabModel: {fileID: 2187535569864799574, guid: 810d3291d57ef514f9b1cdc69fdd946d,
     type: 3}
+  description: "Nh\xE2n v\u1EADt c\xF3 th\u1EC3 s\u1EED d\u1EE5ng ki\u1EBFm \u0111\u1EC3
+    t\u1EA5n c\xF4ng"
+  priceGold: 100

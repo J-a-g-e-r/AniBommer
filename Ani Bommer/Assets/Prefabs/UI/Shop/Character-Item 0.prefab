@@ -1748,6 +1748,7 @@ MonoBehaviour:
   speedText: {fileID: 6058779190316564925}
   rangeText: {fileID: 3273583701256470416}
   maxBombText: {fileID: 2288933497625426589}
+  description: {fileID: 4318674183394932389}
   priceText: {fileID: 3008371540380748563}
   selectButton: {fileID: 2151477983852083866}
   selectButtonText: {fileID: 3008371540380748563}
